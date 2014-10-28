@@ -6,3 +6,4 @@ gem 'sinatra'
 
 gem 'fastimage'
 
+gem 'rspec'
