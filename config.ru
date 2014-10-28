@@ -1,2 +1,2 @@
-require './app/image_api.rb'
-run ImageApi
+require './app/image_tile_server_api.rb'
+run ImageTileServerApi

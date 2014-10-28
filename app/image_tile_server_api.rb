@@ -1,6 +1,6 @@
 require 'sinatra/base'
 
-class ImageApi < Sinatra::Base
+class ImageTileServerApi < Sinatra::Base
 
   get '/' do
     'HEEELLLLLLLOOOOO!!!'
