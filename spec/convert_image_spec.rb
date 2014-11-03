@@ -14,7 +14,7 @@ describe ConvertImage do
   end
 
   it "calls the correct command line entry"  do
-    expect(subject.send(:command)).to eq("vips im_vips2tiff /Users/jhartzle/Workspace/honeypot/app/../system/saved_files/path/1/1/filename.jpg /Users/jhartzle/Workspace/honeypot/app/../system/saved_files/path/1/1/converted/filename.tif:jpeg:80,tile:256x256,pyramid")
+    expect(subject.send(:command)).to eq("vips im_vips2tiff /Users/jhartzle/Workspace/honeypot/app/../system/saved_files/path/1/1/original/filename.jpg /Users/jhartzle/Workspace/honeypot/app/../system/saved_files/path/1/1/filename.tif:jpeg:80,tile:256x256,pyramid")
   end
 
 end

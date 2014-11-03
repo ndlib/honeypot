@@ -20,14 +20,13 @@ class CopyImage
   end
 
   def save_path
-    image.realpath
+    image.original_realpath
   end
 
   private
 
     def verify_directory
-      dirname = File.dirname(image.converted_realpath)
-      puts dirname
+      dirname = File.dirname(save_path)
       unless File.directory?(dirname)
         FileUtils.mkdir_p(dirname)
       end

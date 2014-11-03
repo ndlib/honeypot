@@ -16,7 +16,7 @@ class ConvertImage
   private
 
     def command
-      "vips im_vips2tiff #{image.realpath} #{image.converted_realpath}:jpeg:80,tile:256x256,pyramid"
+      "vips im_vips2tiff #{image.original_realpath} #{image.realpath}:jpeg:80,tile:256x256,pyramid"
     end
 
 end

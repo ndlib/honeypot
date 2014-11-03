@@ -9,7 +9,7 @@ describe CopyImage do
   let(:upload_file) { { filename: "IMG_0143.jpg", type: "image/jpeg", name: "image", tempfile: File.open(File.join(File.dirname(__FILE__), 'fixtures/testimage.jpg'), 'r') } }
 
   it "creates the correct path to save into" do
-    expect(subject.new(upload_file, image).save_path).to eq("/Users/jhartzle/Workspace/honeypot/app/../system/saved_files/base/path/IMG_0143.jpg")
+    expect(subject.new(upload_file, image).save_path).to eq("/Users/jhartzle/Workspace/honeypot/app/../system/saved_files/base/path/original/IMG_0143.jpg")
   end
 
   it "copies the image from the temp file path its save spot" do
@@ -24,7 +24,7 @@ describe CopyImage do
   it "returns the file_path the file will be copied to" do
     upload_file # needed because there is a File.open in it
 
-    expect(File).to receive(:open).with(image.realpath, "wb")
-    expect(described_class.call(upload_file, image)).to eq("/Users/jhartzle/Workspace/honeypot/app/../system/saved_files/base/path/IMG_0143.jpg")
+    expect(File).to receive(:open).with(image.original_realpath, "wb")
+    expect(described_class.call(upload_file, image)).to eq("/Users/jhartzle/Workspace/honeypot/app/../system/saved_files/base/path/original/IMG_0143.jpg")
   end
 end

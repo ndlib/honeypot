@@ -10,11 +10,11 @@ class Image
   end
 
   def filename
-    @filename ||= File.basename(realpath, '.*')
+    @filename ||= File.basename(path, '.*')
   end
 
-  def converted_realpath
-    File.join(app_root, IMAGE_BASE_PATH, File.dirname(path), 'converted', filename + ".tif")
+  def original_realpath
+    File.join(app_root, IMAGE_BASE_PATH, File.dirname(path), 'original', File.basename(path))
   end
 
   def uri
@@ -30,15 +30,15 @@ class Image
   end
 
   def type
-    @type ||= FastImage.type(realpath)
+    @type ||= FastImage.type(original_realpath)
   end
 
   def size
-    @size ||= FastImage.size(realpath)
+    @size ||= FastImage.size(original_realpath)
   end
 
   def realpath
-    File.join(app_root, IMAGE_BASE_PATH, path)
+    File.join(app_root, IMAGE_BASE_PATH, File.dirname(path), filename + ".tif")
   end
 
   def to_json(options = {})
