@@ -1,5 +1,6 @@
 
 class AddImage
+  attr_reader :image, :params
 
   def self.call(params)
     self.new(params).upload!
@@ -19,18 +20,12 @@ class AddImage
   end
 
 
-  def image
-    @image ||= find_or_create_image
-  end
-
   private
 
-    def find_or_create_image
-
-    end
 
     def copy_image
-
+      filepath = CopyImage.call(params[:image], params[:namespace])
+      @image = Image.new(filepath)
     end
 
     def convert_image
