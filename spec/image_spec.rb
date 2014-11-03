@@ -28,7 +28,7 @@ describe Image do
   end
 
   it "sets the converted_filepath" do
-    expect(subject.converted_realpath).to eq("/Users/jhartzle/Workspace/honeypot/app/../spec/fixtures/converted/testimage.tif")
+    expect(subject.converted_realpath).to eq("/Users/jhartzle/Workspace/honeypot/app/../system/saved_files/spec/fixtures/converted/testimage.tif")
   end
 
   it "gets the filename" do

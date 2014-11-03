@@ -1,7 +1,6 @@
 require 'fileutils'
 
 class CopyImage
-  IMAGE_BASE_PATH = '/system/saved_files/'
   attr_reader :image, :uploaded_file
 
   def self.call(uploaded_file, image)
@@ -27,7 +26,8 @@ class CopyImage
   private
 
     def verify_directory
-      dirname = File.dirname(save_path)
+      dirname = File.dirname(image.converted_realpath)
+      puts dirname
       unless File.directory?(dirname)
         FileUtils.mkdir_p(dirname)
       end
