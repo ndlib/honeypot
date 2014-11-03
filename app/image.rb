@@ -1,6 +1,7 @@
 require 'fastimage'
 
 class Image
+  IMAGE_BASE_PATH = '/system/saved_files/'
 
   attr_reader :path, :size
 
@@ -37,7 +38,7 @@ class Image
   end
 
   def realpath
-    File.join(app_root, path)
+    File.join(app_root, IMAGE_BASE_PATH, path)
   end
 
   private

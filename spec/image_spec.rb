@@ -13,14 +13,17 @@ describe Image do
   end
 
   it "looks up the width from the file" do
+    expect(FastImage).to receive(:size).and_return([1200, 1600])
     expect(subject.width).to eq(1200)
   end
 
   it "looks up the height from the file" do
+    expect(FastImage).to receive(:size).and_return([1200, 1600])
     expect(subject.height).to eq(1600)
   end
 
   it "looks up the type from the file" do
+    expect(FastImage).to receive(:type).and_return(:jpeg)
     expect(subject.type).to eq(:jpeg)
   end
 
