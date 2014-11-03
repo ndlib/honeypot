@@ -9,11 +9,11 @@ class Image
   end
 
   def filename
-    @filename ||= File.basename(realpath)
+    @filename ||= File.basename(realpath, '.*')
   end
 
   def converted_realpath
-    File.join(app_root, File.dirname(path), 'converted', File.basename(filename, '.*') + ".tif")
+    File.join(app_root, File.dirname(path), 'converted', filename + ".tif")
   end
 
   def uri

@@ -29,7 +29,7 @@ describe Image do
   end
 
   it "gets the filename" do
-    expect(subject.filename).to eq("testimage.jpg")
+    expect(subject.filename).to eq("testimage")
   end
 
 end
