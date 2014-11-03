@@ -13,7 +13,7 @@ class Image
   end
 
   def converted_filepath
-    File.join(app_root, File.dirname(path), 'converted', filename)
+    File.join(app_root, File.dirname(path), 'converted', File.basename(filename, '.*') + ".tif")
   end
 
   def uri
