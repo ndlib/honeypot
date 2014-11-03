@@ -26,7 +26,7 @@ describe "Image Tile Service" do
 
       get "/image", { namespace: 'name/space', filename: 'filename.jpg'}
 
-      puts last_response.body
+      #puts last_response.body
       #expect(last_response).to be_ok
       #expect(last_response.body).to include("json")
     end

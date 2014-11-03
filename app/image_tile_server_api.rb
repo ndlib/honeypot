@@ -20,7 +20,6 @@ class ImageTileServerApi < Sinatra::Base
     json :image => image
   end
 
-
   def get_image(params)
     Image.new(File.join(params[:namespace], params[:filename]))
   end
