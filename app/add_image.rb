@@ -1,5 +1,6 @@
 require File.dirname(__FILE__) + '/copy_image'
 require File.dirname(__FILE__) + '/convert_image'
+require File.dirname(__FILE__) + '/image'
 
 class AddImage
   attr_reader :image, :params
@@ -19,11 +20,14 @@ class AddImage
     image
   end
 
+  def image
+    @image ||= Image.new(File.join(params[:namespace], params[:image][:filename]))
+  end
+
   private
 
     def copy_image
-      filepath = CopyImage.call(params[:image], params[:namespace])
-      @image = Image.new(filepath)
+      CopyImage.call(params[:image], image)
     end
 
     def convert_image

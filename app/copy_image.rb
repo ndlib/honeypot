@@ -1,3 +1,5 @@
+require 'fileutils'
+
 class CopyImage
   IMAGE_BASE_PATH = '/system/saved_files/'
   attr_reader :image, :uploaded_file
@@ -12,7 +14,9 @@ class CopyImage
   end
 
   def copy
-    File.open(save_path, "wb") { |f| f.write(uploaded_file[:tempfile].read) }
+    verify_directory
+    copy_file
+
     save_path
   end
 
@@ -20,4 +24,16 @@ class CopyImage
     image.realpath
   end
 
+  private
+
+    def verify_directory
+      dirname = File.dirname(save_path)
+      unless File.directory?(dirname)
+        FileUtils.mkdir_p(dirname)
+      end
+    end
+
+    def copy_file
+      File.open(save_path, "wb") { |f| f.write(uploaded_file[:tempfile].read) }
+    end
 end

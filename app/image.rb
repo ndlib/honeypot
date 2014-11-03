@@ -41,6 +41,16 @@ class Image
     File.join(app_root, IMAGE_BASE_PATH, path)
   end
 
+  def to_json(options = {})
+    {
+      width: width,
+      height: height,
+      type: type,
+      path: path,
+      uri: uri
+    }.to_json
+  end
+
   private
 
     def app_root

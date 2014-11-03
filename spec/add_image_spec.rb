@@ -14,7 +14,7 @@ describe AddImage do
   it "takes the params and copies the image to the saved image directory" do
     expect_any_instance_of(described_class).to receive(:convert_image)
 
-    expect(CopyImage).to receive(:call).with(params[:image], params[:namespace])
+    expect(CopyImage).to receive(:call)
     AddImage.call(params)
   end
 
@@ -25,6 +25,11 @@ describe AddImage do
     AddImage.call(params)
   end
 
-  it "returns the current image"
+  it "returns the current image" do
+    expect_any_instance_of(described_class).to receive(:convert_image)
+    expect_any_instance_of(described_class).to receive(:copy_image)
+
+    expect(AddImage.call(params).is_a?(Image)).to be(true)
+  end
 
 end
