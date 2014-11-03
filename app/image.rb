@@ -12,7 +12,7 @@ class Image
     @filename ||= File.basename(realpath)
   end
 
-  def converted_filepath
+  def converted_realpath
     File.join(app_root, File.dirname(path), 'converted', File.basename(filename, '.*') + ".tif")
   end
 

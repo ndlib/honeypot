@@ -6,7 +6,7 @@ describe Image do
   subject { described_class.new(filepath) }
   let(:filepath) { '/spec/fixtures/testimage.jpg'}
 
-  [:filename, :width, :height, :path, :uri, :type, :converted_filepath].each do |attr|
+  [:filename, :width, :height, :path, :uri, :type, :realpath].each do |attr|
     it "has the field, #{attr}" do
       expect(subject).to respond_to attr
     end
@@ -25,7 +25,7 @@ describe Image do
   end
 
   it "sets the converted_filepath" do
-    expect(subject.converted_filepath).to eq("/Users/jhartzle/Workspace/honeypot/app/../spec/fixtures/converted/testimage.tif")
+    expect(subject.converted_realpath).to eq("/Users/jhartzle/Workspace/honeypot/app/../spec/fixtures/converted/testimage.tif")
   end
 
   it "gets the filename" do
