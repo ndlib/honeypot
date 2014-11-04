@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/add_image'
 
-class ImageTileServerApi < Sinatra::Base
+class Application < Sinatra::Base
 
   get '/' do
     params.inspect
