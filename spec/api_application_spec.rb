@@ -1,11 +1,11 @@
 require 'spec_helper'
-require File.dirname(__FILE__) + '/../app/application.rb'
+require File.dirname(__FILE__) + '/../app/api_application.rb'
 
 
 describe "Image Tile Service" do
 
   def app
-    Application
+    ApiApplication
   end
 
   describe "add_image" do
@@ -18,15 +18,13 @@ describe "Image Tile Service" do
 
 
   describe "#image" do
-    let(:image) { Image.new('not/an/image.jpg')}
+    let(:image) { double(Image, width: 1000, height: 1000, type: 'image/jpg', path: 'path', uri: 'uri')}
 
     it "returns json about the image " do
-      expect(image).to receive(:to_json).and_return("json")
-      expect_any_instance_of(Application).to receive(:get_image).and_return(image)
+      expect_any_instance_of(Image).to receive(:find).and_return(image)
 
-      get "/image", { namespace: 'name/space', filename: 'filename.jpg'}
+      get "/", { namespace: 'name/space', filename: 'filename.jpg' }
 
-      #puts last_response.body
       expect(last_response).to be_ok
       expect(last_response.body).to include("json")
     end

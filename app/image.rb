@@ -5,6 +5,10 @@ class Image
 
   attr_reader :path, :size
 
+  def self.find(filepath)
+    new(filepath)
+  end
+
   def initialize(filepath)
     @path = filepath
   end
@@ -39,16 +43,6 @@ class Image
 
   def realpath
     File.join(app_root, IMAGE_BASE_PATH, File.dirname(path), filename + ".tif")
-  end
-
-  def to_json(options = {})
-    {
-      width: width,
-      height: height,
-      type: type,
-      path: path,
-      uri: uri
-    }.to_json
   end
 
   private
