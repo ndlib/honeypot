@@ -11,7 +11,7 @@ class ApiApplication < Sinatra::Base
     erb :test
   end
 
-  post '/add_image' do
+  post '/image' do
     image = AddImage.call(params)
     json :image => ImageJsonFormatter.new(image)
   end
