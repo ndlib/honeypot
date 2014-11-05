@@ -48,6 +48,6 @@ class Image
   private
 
     def app_root
-      File.dirname(__FILE__) + '/../'
+      File.expand_path('..', File.dirname(__FILE__))
     end
 end
