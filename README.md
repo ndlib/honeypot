@@ -10,7 +10,7 @@ to run in development
 
 ### To send an image to server.
 
-post multipart data to /add_image
+post multipart data to /images
 
 with the params
 
@@ -27,8 +27,26 @@ connection ||= Faraday.new("api_url") do |f|
 
 connection.post('/add_image', { namespace: 'namespace', image: Faraday::UploadIO.new(path_to_image, icontent_type) })
 
-### Data received back
+#### Data received back
 
+JSON
+{
+  "image":{
+    "width":1200,
+    "height":1600,
+    "type":"jpeg",
+    "path":"namspace/IMG_0108.jpg",
+    "uri":"http://imagetile.library.nd.edu/namspace/IMG_0108.jpg"
+  }
+}
+
+
+### to look up an image
+
+get /images/namespace/to/file.extension
+
+
+retreives
 JSON
 {
   "image":{

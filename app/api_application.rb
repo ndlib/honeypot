@@ -11,13 +11,14 @@ class ApiApplication < Sinatra::Base
     erb :test
   end
 
-  post '/image' do
+  post '/images' do
     image = AddImage.call(params)
     json :image => ImageJsonFormatter.new(image)
   end
 
-  get '/image' do
-    image = Image.find(File.join(params[:namespace], params[:filename]))
+  get '/images/*' do
+    puts params.inspect
+    image = Image.find(params[:splat].first)
     json :image => ImageJsonFormatter.new(image)
   end
 
