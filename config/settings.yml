@@ -1,0 +1,6 @@
+image_path: system/saved_files
+host:
+  development: localhost
+  test: localhost
+  pre_production: honeypotpprd.library.nd.edu
+  production: honeypot.library.nd.edu

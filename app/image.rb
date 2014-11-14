@@ -1,7 +1,6 @@
 require 'fastimage'
 
 class Image
-  IMAGE_BASE_PATH = '/system/saved_files/'
 
   attr_reader :path, :size
 
@@ -18,7 +17,7 @@ class Image
   end
 
   def original_realpath
-    File.join(app_root, IMAGE_BASE_PATH, File.dirname(path), 'original', File.basename(path))
+    File.join(image_root, File.dirname(path), 'original', File.basename(path))
   end
 
   def uri
@@ -42,12 +41,16 @@ class Image
   end
 
   def realpath
-    File.join(app_root, IMAGE_BASE_PATH, File.dirname(path), filename + ".tif")
+    File.join(image_root, File.dirname(path), filename + ".tif")
   end
 
   private
 
     def app_root
       File.expand_path('..', File.dirname(__FILE__))
+    end
+
+    def image_root
+      File.join(app_root, ApiApplication.settings.image_path)
     end
 end
