@@ -1,8 +1,8 @@
-class lib_iipimage( $app_root = '/home/app') {
+class lib_iipimage( $app_root = '/home/app/honeypot/current') {
 
   $pkglist = [ "iipsrv", "iipsrv-httpd-fcgi" ]
-  $image_root = "${app_root}/images"
-  $log_dir = "${app_root}/logs"
+  $image_root = "${app_root}/public/images"
+  $log_dir = "${app_root}/log"
 
   package { $pkglist:
     ensure => present,

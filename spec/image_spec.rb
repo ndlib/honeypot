@@ -29,11 +29,11 @@ describe Image do
   end
 
   it "sets the original_realpath" do
-    expect(subject.original_realpath).to eq("#{root}/system/saved_files/spec/fixtures/original/testimage.jpg")
+    expect(subject.original_realpath).to eq("#{root}/public/images/spec/fixtures/original/testimage.jpg")
   end
 
   it "sets the realpath" do
-    expect(subject.realpath).to eq("#{root}/system/saved_files/spec/fixtures/testimage.tif")
+    expect(subject.realpath).to eq("#{root}/public/images/spec/fixtures/testimage.tif")
   end
 
   it "gets the filename" do

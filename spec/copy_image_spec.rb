@@ -10,7 +10,7 @@ describe CopyImage do
   let(:root) { File.expand_path('..', File.dirname(__FILE__)) }
 
   it "creates the correct path to save into" do
-    expect(subject.new(upload_file, image).save_path).to eq("#{root}/system/saved_files/base/path/original/IMG_0143.jpg")
+    expect(subject.new(upload_file, image).save_path).to eq("#{root}/public/images/base/path/original/IMG_0143.jpg")
   end
 
   it "copies the image from the temp file path its save spot" do
@@ -26,6 +26,6 @@ describe CopyImage do
     upload_file # needed because there is a File.open in it
 
     expect(File).to receive(:open).with(image.original_realpath, "wb")
-    expect(described_class.call(upload_file, image)).to eq("#{root}/system/saved_files/base/path/original/IMG_0143.jpg")
+    expect(described_class.call(upload_file, image)).to eq("#{root}/public/images/base/path/original/IMG_0143.jpg")
   end
 end

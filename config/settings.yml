@@ -1,4 +1,4 @@
-image_path: system/saved_files
+image_path: public/images
 host:
   development: localhost
   test: localhost
