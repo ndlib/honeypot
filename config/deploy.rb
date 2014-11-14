@@ -64,7 +64,7 @@ namespace :und do
   desc "Run puppet using the modules supplied by the application"
   task :puppet do
     local_module_path = File.join(release_path, 'puppet', 'modules')
-    puppet_apply = %Q{sudo puppet apply --modulepath=#{local_module_path}:/global/puppet_standalone/modules:/etc/puppet/modules -e "class { 'lib_iipimage': }"}
+    puppet_apply = %Q{sudo puppet apply --modulepath=#{local_module_path}:/global/puppet_standalone/modules:/etc/puppet/modules -e "class { 'lib_honeypot': }"}
     on roles(:web) do
       execute puppet_apply
     end 
