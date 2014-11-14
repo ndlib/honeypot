@@ -1,4 +1,4 @@
-class lib_iipimage( $app_root = '/home/app/honeypot/current') {
+class lib_iipimage( $app_root = '/home/app/honeypot/shared') {
 
   $pkglist = [ "iipsrv", "iipsrv-httpd-fcgi" ]
   $image_root = "${app_root}/public/images"
