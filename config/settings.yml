@@ -1,4 +1,9 @@
 image_path: public/images
+vips_command:
+  development: vips
+  test: vips
+  pre_production: /usr/local/bin/vips
+  production: /usr/local/bin/vips
 host:
   development: localhost
   test: localhost
