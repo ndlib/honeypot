@@ -4,10 +4,10 @@ require File.dirname(__FILE__) + '/../app/image.rb'
 
 describe Image do
   subject { described_class.new(filepath) }
-  let(:filepath) { '/spec/fixtures/testimage.jpg'}
+  let(:filepath) { '/spec/fixtures/testimage'}
   let(:root) { File.expand_path('..', File.dirname(__FILE__)) }
 
-  [:filename, :width, :height, :path, :uri, :type, :realpath, :original_realpath].each do |attr|
+  [:filename, :width, :height, :uri_path, :type, :realpath, :original_realpath].each do |attr|
     it "has the field, #{attr}" do
       expect(subject).to respond_to attr
     end

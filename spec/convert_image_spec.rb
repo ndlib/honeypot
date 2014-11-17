@@ -7,7 +7,7 @@ describe ConvertImage do
   subject { described_class.new(image) }
 
   let(:image_path) { 'path/1/1' }
-  let(:image) { Image.new("#{image_path}/filename.jpg") }
+  let(:image) { Image.new("#{image_path}/filename") }
   let(:root) { File.expand_path('..', File.dirname(__FILE__)) }
 
   it "calls a command line to convert the image" do

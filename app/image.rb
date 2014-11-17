@@ -1,27 +1,24 @@
 require 'fastimage'
+require 'pathname'
 
 class Image
 
-  attr_reader :path, :size
+  attr_reader :namespace, :filename
 
   def self.find(filepath)
     new(filepath)
   end
 
   def initialize(filepath)
-    @path = filepath
-  end
-
-  def filename
-    @filename ||= File.basename(path, '.*')
+    set_namespace_and_filename(filepath)
   end
 
   def original_realpath
-    File.join(image_root, File.dirname(path), 'original', File.basename(path))
+    @original_realpath ||= find_original_filepath
   end
 
-  def uri
-    "http://imagetile.library.nd.edu/#{path}"
+  def uri_path
+    "#{namespace}/#{filename}"
   end
 
   def width
@@ -41,16 +38,42 @@ class Image
   end
 
   def realpath
-    File.join(image_root, File.dirname(path), filename + ".tif")
+    File.join(basepath, filename + ".tif")
+  end
+
+  def self.app_root
+    @app_root ||= File.expand_path('..', File.dirname(__FILE__))
+  end
+
+  def self.image_root
+    @image_root ||= File.join(app_root, ApiApplication.settings.image_path)
   end
 
   private
 
-    def app_root
-      File.expand_path('..', File.dirname(__FILE__))
+    def basepath
+      @basepath ||= File.join(self.class.image_root, namespace)
     end
 
-    def image_root
-      File.join(app_root, ApiApplication.settings.image_path)
+    def original_basepath
+      File.join(basepath, "original")
+    end
+
+    def find_original_filepath
+      Dir[original_searchpath].first || original_fullpath_fallback
+    end
+
+    def original_fullpath_fallback
+      File.join(original_basepath, "#{filename}.jpg")
+    end
+
+    def original_searchpath
+      File.join(original_basepath, "#{filename}.*")
+    end
+
+    def set_namespace_and_filename(filepath)
+      pathname = Pathname.new(filepath)
+      @namespace = pathname.dirname.to_s
+      @filename = pathname.basename().to_s
     end
 end

@@ -2,8 +2,12 @@
 
 to run in development
 
-1. bundle
-2. rerun 'rackup -p 4567'
+1. `bundle`
+2. `rerun 'rackup -p 4567'` (rerun automatically reloads the application when changes are made)
+
+To allow external connections in development mode:
+
+`rerun 'rackup -p 4567 -o 0.0.0.0'`
 
 
 ## Usage
@@ -19,41 +23,44 @@ namespace:  is a distinguishing variable to ensure that you are not overwritting
 image: "the image data "
 
 Faraday Example:
+```ruby
 connection ||= Faraday.new("api_url") do |f|
-        f.request :multipart
-        f.request :url_encoded
-        f.adapter :net_http
-      end
+  f.request :multipart
+  f.request :url_encoded
+  f.adapter :net_http
+end
 
 connection.post('/add_image', { namespace: 'namespace', image: Faraday::UploadIO.new(path_to_image, icontent_type) })
+```
 
 #### Data received back
 
 JSON
+```JSON
 {
   "image":{
     "width":1200,
     "height":1600,
-    "type":"jpeg",
-    "path":"namspace/IMG_0108.jpg",
-    "uri":"http://imagetile.library.nd.edu/namspace/IMG_0108.jpg"
+    "path":"namespace/IMG_0108",
+    "host":"imagetile.library.nd.edu"
   }
 }
-
+```
 
 ### to look up an image
 
-get /images/namespace/to/file.extension
+GET https://imagetile.library.nd.edu/images/namespace/to/image
 
 
-retreives
+retrieves
 JSON
+```JSON
 {
   "image":{
     "width":1200,
     "height":1600,
-    "type":"jpeg",
-    "path":"namspace/IMG_0108.jpg",
-    "uri":"http://imagetile.library.nd.edu/namspace/IMG_0108.jpg"
+    "path":"namespace/to/image",
+    "host":"imagetile.library.nd.edu"
   }
 }
+```

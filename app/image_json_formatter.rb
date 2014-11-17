@@ -7,14 +7,12 @@ class ImageJsonFormatter
     @image = image
   end
 
-
   def to_json(options = {})
     {
       width: image.width,
       height: image.height,
-      type: image.type,
-      path: image.path,
-      uri: image.uri
+      path: image.uri_path,
+      host: ApiApplication.settings.host,
     }.to_json(options)
   end
 end

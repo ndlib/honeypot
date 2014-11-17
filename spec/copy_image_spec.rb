@@ -5,7 +5,7 @@ require File.dirname(__FILE__) + '/../app/copy_image.rb'
 describe CopyImage do
   subject { described_class }
 
-  let(:image) { Image.new("base/path/IMG_0143.jpg") }
+  let(:image) { Image.new("base/path/IMG_0143") }
   let(:upload_file) { { filename: "IMG_0143.jpg", type: "image/jpeg", name: "image", tempfile: File.open(File.join(File.dirname(__FILE__), 'fixtures/testimage.jpg'), 'r') } }
   let(:root) { File.expand_path('..', File.dirname(__FILE__)) }
 
