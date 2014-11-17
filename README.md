@@ -3,7 +3,7 @@
 to run in development
 
 1. bundle
-2. rackup -p 4567
+2. rerun 'rackup -p 4567'
 
 
 ## Usage

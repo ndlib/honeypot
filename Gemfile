@@ -9,8 +9,9 @@ gem 'fastimage'
 gem 'capistrano', '~> 3.1'
 gem 'capistrano-bundler', '~> 1.1.2'
 
-group :test do
+group :test, :development do
 
   gem 'rspec'
   gem 'rack-test'
+  gem 'rerun'
 end
