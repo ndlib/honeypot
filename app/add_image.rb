@@ -20,8 +20,16 @@ class AddImage
     image
   end
 
+  def basefilename
+    File.basename(params[:image][:filename], '.*')
+  end
+
+  def filepath
+    File.join(params[:namespace], basefilename)
+  end
+
   def image
-    @image ||= Image.new(File.join(params[:namespace], params[:image][:filename]))
+    @image ||= Image.new(filepath)
   end
 
   private
