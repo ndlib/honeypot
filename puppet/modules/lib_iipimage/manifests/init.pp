@@ -10,7 +10,7 @@ class lib_iipimage( $app_root = '/home/app/honeypot/shared') {
 
   file { [ $image_root, $log_dir ]:
     ensure => directory,
-    mode => 0775,
+    mode => "0775",
     owner => "app",
     group => "app",
     require => Package[$pkglist],
@@ -19,7 +19,7 @@ class lib_iipimage( $app_root = '/home/app/honeypot/shared') {
   # the mod_fcgid directory needs to be group writable since the fcgi processes run as the app user
   file { '/var/run/mod_fcgid':
     ensure => directory,
-    mode => 0775,
+    mode => "0775",
     owner => "apache",
     group => "apache",
     require => File[$image_root, $log_dir],
@@ -37,5 +37,5 @@ class lib_iipimage( $app_root = '/home/app/honeypot/shared') {
     command => "/sbin/service httpd restart",
     refreshonly => true,
   }
-    
+
 }
