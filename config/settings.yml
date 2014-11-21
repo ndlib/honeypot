@@ -8,4 +8,4 @@ host:
   development: localhost
   test: localhost
   pre_production: honeypotpprd.library.nd.edu
-  production: honeypot.library.nd.edu
+  production: honeypotpprd.library.nd.edu
