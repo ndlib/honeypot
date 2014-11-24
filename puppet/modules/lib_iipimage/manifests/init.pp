@@ -9,7 +9,14 @@ class lib_iipimage( $deploy_to, $remote_image_mount ) {
     ensure => present,
   }
 
-  file { [ $remote_image_directory, $log_dir ]:
+  file { $remote_image_directory:
+    ensure => directory,
+    owner => "app",
+    group => "app",
+    require => Package[$pkglist],
+  }
+
+  file { $log_dir:
     ensure => directory,
     mode => "0775",
     owner => "app",
