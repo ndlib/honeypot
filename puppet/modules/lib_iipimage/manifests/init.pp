@@ -18,12 +18,12 @@ class lib_iipimage( $deploy_to, $remote_image_mount ) {
   }
 
   file { $local_image_directory:
-    ensure => 'link',
+    ensure => link,
     mode => "0775",
     owner => "app",
     group => "app",
     target => $remote_image_directory,
-    require => $remote_image_directory,
+    require => File[$remote_image_directory],
   }
 
   # the mod_fcgid directory needs to be group writable since the fcgi processes run as the app user
