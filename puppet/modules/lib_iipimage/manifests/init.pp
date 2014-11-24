@@ -26,6 +26,7 @@ class lib_iipimage( $deploy_to, $remote_image_mount ) {
 
   file { $local_image_directory:
     ensure => link,
+    force => true,
     mode => "0775",
     owner => "app",
     group => "app",
