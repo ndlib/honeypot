@@ -10,6 +10,8 @@ role :web, %w{app@honeypotpprd.library.nd.edu}
 
 set :rack_env, :pre_production
 
+set :remote_image_mount, "/mnt/corpfs_web/honeypot/pprd"
+
 # Extended Server Syntax
 # ======================
 # This can be used to drop a more detailed server definition into the

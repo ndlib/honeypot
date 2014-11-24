@@ -3,7 +3,7 @@ ScriptAlias /fcgi/iipsrv /usr/libexec/iipsrv/iipsrv.fcgi
 # Set our environment variables for the IIP server
 DefaultInitEnv VERBOSITY "5"
 DefaultInitEnv LOGFILE "<%= @log_dir %>/iipsrv.log"
-DefaultInitEnv FILESYSTEM_PREFIX "<%= @image_root %>/"
+DefaultInitEnv FILESYSTEM_PREFIX "<%= @local_image_directory %>/"
 DefaultInitEnv MAX_IMAGE_CACHE_SIZE "10"
 DefaultInitEnv JPEG_QUALITY "50"
 DefaultInitEnv MAX_CVT "3000"

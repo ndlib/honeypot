@@ -64,10 +64,15 @@ namespace :und do
   desc "Run puppet using the modules supplied by the application"
   task :puppet do
     local_module_path = File.join(release_path, 'puppet', 'modules')
-    puppet_apply = %Q{sudo puppet apply --modulepath=#{local_module_path}:/global/puppet_standalone/modules:/etc/puppet/modules -e "class { 'lib_honeypot': }"}
+    options = {
+      remote_image_mount: fetch(:remote_image_mount),
+      deploy_to: fetch(:deploy_to),
+    }
+    option_string = options.map { |k,v| "#{k} => '#{v}'" }.join(', ')
+    puppet_apply = %Q{sudo puppet apply --modulepath=#{local_module_path}:/global/puppet_standalone/modules:/etc/puppet/modules -e "class { 'lib_honeypot': #{option_string} }"}
     on roles(:web) do
       execute puppet_apply
-    end 
+    end
   end
 end
 

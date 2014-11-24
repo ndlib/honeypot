@@ -10,6 +10,8 @@ role :web, %w{app@honeypotprod.library.nd.edu}
 
 set :rack_env, :production
 
+set :remote_image_mount, "/mnt/corpfs_web/honeypot/prod"
+
 # Extended Server Syntax
 # ======================
 # This can be used to drop a more detailed server definition into the

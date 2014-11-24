@@ -1,19 +1,29 @@
-class lib_iipimage( $app_root = '/home/app/honeypot/shared') {
+class lib_iipimage( $deploy_to, $remote_image_mount ) {
 
   $pkglist = [ "iipsrv", "iipsrv-httpd-fcgi" ]
-  $image_root = "${app_root}/public/images"
-  $log_dir = "${app_root}/log"
+  $remote_image_directory = "${remote_image_mount}/images"
+  $local_image_directory = "${deploy_to}/shared/public/images"
+  $log_dir = "${deploy_to}/shared/log"
 
   package { $pkglist:
     ensure => present,
   }
 
-  file { [ $image_root, $log_dir ]:
+  file { [ $remote_image_directory, $log_dir ]:
     ensure => directory,
     mode => "0775",
     owner => "app",
     group => "app",
     require => Package[$pkglist],
+  }
+
+  file { $local_image_directory:
+    ensure => 'link',
+    mode => "0775",
+    owner => "app",
+    group => "app",
+    target => $remote_image_directory,
+    require => $remote_image_directory,
   }
 
   # the mod_fcgid directory needs to be group writable since the fcgi processes run as the app user
@@ -22,7 +32,7 @@ class lib_iipimage( $app_root = '/home/app/honeypot/shared') {
     mode => "0775",
     owner => "apache",
     group => "apache",
-    require => File[$image_root, $log_dir],
+    require => File[$local_image_directory, $log_dir],
   }
 
   file { 'iipsrv.conf':
