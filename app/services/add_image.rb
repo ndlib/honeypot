@@ -17,7 +17,7 @@ class AddImage
   end
 
   def basefilename
-    File.basename(params[:image][:filename], '.*')
+    File.basename(uploaded_image.original_filename, '.*')
   end
 
   def filepath
@@ -30,8 +30,12 @@ class AddImage
 
   private
 
+    def uploaded_image
+      params[:image]
+    end
+
     def copy_image
-      CopyImage.call(params[:image], image)
+      CopyImage.call(uploaded_image, image)
     end
 
     def convert_image

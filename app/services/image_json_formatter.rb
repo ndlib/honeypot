@@ -7,12 +7,16 @@ class ImageJsonFormatter
     @image = image
   end
 
-  def to_json(options = {})
+  def to_hash
     {
       width: image.width,
       height: image.height,
       path: image.uri_path,
       host: Rails.configuration.honeypot.host,
-    }.to_json(options)
+    }
+  end
+
+  def to_json(options = {})
+    to_hash.to_json(options)
   end
 end

@@ -1,7 +1,8 @@
 require 'rails_helper'
 
 describe AddImage do
-  let(:params) { { namespace: 'path/1/1', image: { filename: 'filename.jpg' } } }
+  let(:upload_file) { Rack::Test::UploadedFile.new(Rails.root.join('spec/fixtures/testimage.jpg'), 'image/jpeg') }
+  let(:params) { { namespace: 'path/1/1', image: upload_file } }
 
   it "validates that there is a namespace set "
 

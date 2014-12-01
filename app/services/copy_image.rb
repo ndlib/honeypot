@@ -31,6 +31,6 @@ class CopyImage
     end
 
     def copy_file
-      File.open(save_path, "wb") { |f| f.write(uploaded_file[:tempfile].read) }
+      File.open(save_path, "wb") { |f| f.write(uploaded_file.read) }
     end
 end

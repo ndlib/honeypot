@@ -1,10 +1,8 @@
 Rails.application.routes.draw do
   namespace :api do
-    resources :images, only: [:create] do
-      collection do
-        get '*image_path', to: 'images#show', defaults: {format: :json}
-      end
+    resources :images, only: [:new, :create] do
     end
+    get 'images/*image_path', to: 'images#show', defaults: {format: :json}, as: :image
   end
 
   # The priority is based upon order of creation: first created -> highest priority.
