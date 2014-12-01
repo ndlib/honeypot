@@ -11,3 +11,7 @@
 /log/*
 !/log/.keep
 /tmp
+
+# Ignore application-specific paths
+/public/images/*
+!/public/images/.keep
