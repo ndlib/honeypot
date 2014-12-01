@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   namespace :api do
     resources :images, only: [:create] do
       collection do
-        get '*image_path', to: 'images#show'
+        get '*image_path', to: 'images#show', defaults: {format: :json}
       end
     end
   end

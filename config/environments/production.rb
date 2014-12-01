@@ -74,5 +74,5 @@ Rails.application.configure do
   config.log_formatter = ::Logger::Formatter.new
 
   config.honeypot.vips_command = '/usr/local/bin/vips'
-  config.honeypot.url = { host: 'honeypotpprd.library.nd.edu' }
+  config.honeypot.host = 'honeypot.library.nd.edu'
 end

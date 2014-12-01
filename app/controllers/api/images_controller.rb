@@ -5,6 +5,7 @@ class Api::ImagesController < ApplicationController
   def show
     @image = Image.new(params[:image_path])
     respond_to do |format|
+      format.json { render json: ImageJsonFormatter.new(@image) }
       format.jpg { send_file @image.original_realpath }
     end
   end

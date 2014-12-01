@@ -37,5 +37,5 @@ Rails.application.configure do
   # config.action_view.raise_on_missing_translations = true
 
   config.honeypot.vips_command = 'vips'
-  config.honeypot.url = { host: 'localhost', port: 3019 }
+  config.honeypot.host = 'localhost'
 end
