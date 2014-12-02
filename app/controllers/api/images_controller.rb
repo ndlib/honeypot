@@ -1,9 +1,6 @@
 class Api::ImagesController < ApplicationController
   skip_before_action :verify_authenticity_token
 
-  Mime::Type.register "image/png", :png
-  Mime::Type.register "image/jpeg", :jpg
-
   def new
   end
 
