@@ -1,5 +1,5 @@
 # config valid only for Capistrano 3.1
-lock '3.2.1'
+lock '3.3.3'
 
 set :application, 'honeypot'
 set :repo_url, 'https://github.com/ndlib/honeypot.git'
@@ -24,10 +24,11 @@ set :deploy_to, '/home/app/honeypot'
 
 # Default value for :linked_files is []
 # set :linked_files, %w{config/database.yml}
+set :linked_files, %w{config/secrets.yml}
 
 # Default value for linked_dirs is []
 # set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
-set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/images}
+set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets public/system public/images}
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
