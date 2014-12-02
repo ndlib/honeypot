@@ -42,7 +42,7 @@ class Image
   end
 
   def self.image_root
-    @image_root ||= File.join(Rails.root, Rails.configuration.honeypot.image_path)
+    @image_root ||= File.join(Rails.root, Rails.configuration.settings.image_path)
   end
 
   private

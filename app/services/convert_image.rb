@@ -20,7 +20,7 @@ class ConvertImage
     end
 
     def vips_command
-      Rails.configuration.honeypot.vips_command
+      Rails.configuration.settings.vips_command
     end
 
 end

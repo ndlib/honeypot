@@ -1,0 +1,26 @@
+# Store non-sensitive configuration settings here.  Acessible from Rails.configuration.settings
+defaults: &defaults
+  image_path: 'public/images'
+
+local: &local
+  <<: *defaults
+  host: localhost
+  vips_command: 'vips'
+
+vm: &vm
+  <<: *defaults
+  vips_command: '/usr/local/bin/vips'
+
+development:
+  <<: *local
+
+test:
+  <<: *local
+
+pre_production:
+  <<: *vm
+  host: honeypotpprd.library.nd.edu
+
+production:
+  <<: *vm
+  host: honeypot.library.nd.edu

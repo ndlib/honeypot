@@ -12,7 +12,7 @@ class ImageJsonFormatter
       width: image.width,
       height: image.height,
       path: image.uri_path,
-      host: Rails.configuration.honeypot.host,
+      host: Rails.configuration.settings.host,
     }
   end
 

@@ -72,7 +72,4 @@ Rails.application.configure do
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
-
-  config.honeypot.vips_command = '/usr/local/bin/vips'
-  config.honeypot.host = 'honeypot.library.nd.edu'
 end
