@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe Image do
-  subject { described_class.new(filepath) }
+  subject { described_class.build_from_path(filepath) }
   let(:filepath) { '/spec/fixtures/testimage'}
   let(:root) { Rails.root }
 

@@ -25,7 +25,7 @@ class AddImage
   end
 
   def image
-    @image ||= Image.new(filepath)
+    @image ||= Image.build_from_path(filepath)
   end
 
   private

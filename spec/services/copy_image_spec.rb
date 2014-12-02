@@ -3,7 +3,7 @@ require 'action_dispatch/testing/test_process'
 describe CopyImage do
   subject { described_class }
 
-  let(:image) { Image.new("base/path/IMG_0143") }
+  let(:image) { Image.build_from_path("base/path/IMG_0143") }
   # let(:upload_file) { { filename: "IMG_0143.jpg", type: "image/jpeg", name: "image", tempfile: File.open(Rails.root.join('spec/fixtures/testimage.jpg'), 'r') } }
   let(:upload_file) { Rack::Test::UploadedFile.new(Rails.root.join('spec/fixtures/testimage.jpg'), 'image/jpeg') }
   let(:root) { Rails.root }

@@ -1,16 +1,19 @@
 require 'fastimage'
 require 'pathname'
+require 'active_model'
 
 class Image
+  include ActiveModel::Model
 
-  attr_reader :namespace, :filename
+  attr_accessor :namespace, :filename
 
   def self.find(filepath)
-    new(filepath)
+    build_from_path(filepath)
   end
 
-  def initialize(filepath)
-    set_namespace_and_filename(filepath)
+  def self.build_from_path(filepath)
+    attributes = get_namespace_and_filename(filepath)
+    new(attributes)
   end
 
   def original_realpath
@@ -67,9 +70,11 @@ class Image
       File.join(original_basepath, "#{filename}.*")
     end
 
-    def set_namespace_and_filename(filepath)
+    def self.get_namespace_and_filename(filepath)
       pathname = Pathname.new(filepath)
-      @namespace = pathname.dirname.to_s
-      @filename = pathname.basename().to_s
+      {
+        namespace: pathname.dirname.to_s,
+        filename: pathname.basename.to_s
+      }
     end
 end
