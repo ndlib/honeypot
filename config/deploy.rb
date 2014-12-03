@@ -37,6 +37,9 @@ set :default_env, { path: "/opt/ruby/current/bin:$PATH" }
 # Default value for keep_releases is 5
 # set :keep_releases, 5
 
+# Run the puppet scripts before bundle to make sure all dependencies are installed
+before "deploy:bundle", "und:puppet"
+
 namespace :deploy do
 
   desc 'Restart application'
@@ -76,5 +79,3 @@ namespace :und do
     end
   end
 end
-
-after "deploy:updated", "und:puppet"
