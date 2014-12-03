@@ -1,15 +1,17 @@
-# HONEYPOT !!!
+# Honeypot - Image processor and server
 
-to run in development
+[![Build Status](https://travis-ci.org/ndlib/honeypot.svg?branch=master)](https://travis-ci.org/ndlib/honeypot)
+
+To run in development
 
 1. `bundle`
-2. `rails s -p 3019`
+2. `bundle exec guard`
 
 ## Usage
 
 ### To send an image to server.
 
-post multipart data to /images
+post multipart data to /api/images
 
 with the params
 
