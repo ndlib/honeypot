@@ -4,8 +4,18 @@ require 'active_model'
 
 class Image
   include ActiveModel::Model
+  include Paperclip::Glue
+
+  define_model_callbacks :save, only: [:after]
+  define_model_callbacks :commit, only: [:after]
+  define_model_callbacks :destroy, only: [:before, :after]
 
   attr_accessor :namespace, :filename
+  attr_accessor :attachment_file_name
+  has_attached_file :attachment,
+    styles: { small: ["x200", :jpg], medium: ["x800", :jpg], square: ["600x600#", :jpg] },
+    path: ":rails_root/public/images/:namespace/:basename/:style.:extension",
+    url: ":rails_root/public/images/:namespace/:basename/:style.:extension"
 
   def self.find(filepath)
     build_from_path(filepath)
@@ -46,6 +56,16 @@ class Image
 
   def self.image_root
     @image_root ||= File.join(Rails.root, Rails.configuration.settings.image_path)
+  end
+
+  def save
+    run_callbacks :save do
+    end
+  end
+
+  def destroy
+    run_callbacks :destroy do
+    end
   end
 
   private
