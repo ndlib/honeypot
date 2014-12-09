@@ -26,6 +26,10 @@ describe Image do
     expect(subject.original_filepath).to eq("#{base_full_filepath}/testimage.jpg")
   end
 
+  it "returns a derivative filepath" do
+    expect(subject.derivative_filepath(:small)).to eq("#{base_full_filepath}/small/testimage.jpg")
+  end
+
   it "returns the pyramid_filepath" do
     expect(subject.pyramid_filepath).to eq("#{base_full_filepath}/pyramid/testimage.tif")
   end

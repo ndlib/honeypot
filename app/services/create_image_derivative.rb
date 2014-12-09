@@ -1,15 +1,16 @@
 require 'vips'
 
 class CreateImageDerivative
-  attr_reader :source_filepath, :target_filepath
+  attr_reader :source_filepath, :target_filepath, :options
 
-  def self.call(source_filepath, target_filepath)
-    new(source_filepath, target_filepath).convert!
+  def self.call(source_filepath, target_filepath, options = {})
+    new(source_filepath, target_filepath, options).convert!
   end
 
-  def initialize(source_filepath, target_filepath)
+  def initialize(source_filepath, target_filepath, options = {})
     @source_filepath = source_filepath
     @target_filepath = target_filepath
+    @options = options
   end
 
   def convert!

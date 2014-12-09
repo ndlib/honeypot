@@ -18,8 +18,9 @@ describe ConvertImage do
   end
 
   describe '#convert!' do
-    it 'calls #create_pyramid_tiff!' do
+    it 'calls #create_pyramid_tiff! and #create_thumbnails!' do
       expect(subject).to receive(:create_pyramid_tiff!)
+      expect(subject).to receive(:create_thumbnails!)
       subject.convert!
     end
   end
@@ -28,6 +29,22 @@ describe ConvertImage do
     it 'calls CreatePyramidTiff' do
       expect(CreatePyramidTiff).to receive(:call).with('source', 'pyramid_target')
       subject.send(:create_pyramid_tiff!)
+    end
+  end
+
+  describe '#create_thumbnails' do
+    it 'creates three thumbnails' do
+      expect(subject).to receive(:create_thumbnail!).with(:small, {height: 200})
+      expect(subject).to receive(:create_thumbnail!).with(:medium, {height: 800})
+      subject.send(:create_thumbnails!)
+    end
+  end
+
+  describe '#create_thumbnail!' do
+    it 'calls CreateThumbnail' do
+      expect(image).to receive(:derivative_filepath).with(:small).and_return('small')
+      expect(CreateThumbnail).to receive(:call).with('source', 'small', {height: 200})
+      subject.send(:create_thumbnail!, :small, {height: 200})
     end
   end
 

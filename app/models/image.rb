@@ -21,6 +21,10 @@ class Image
     full_filepath(File.join("pyramid", pyramid_basename))
   end
 
+  def derivative_filepath(style)
+    full_filepath(File.join(style.to_s, basename))
+  end
+
   def uri_path
     relative_path.to_s
   end

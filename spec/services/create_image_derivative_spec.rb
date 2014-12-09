@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 describe CreateImageDerivative do
+  let(:options) { {test: 'test'} }
   let(:fixture_directory) { Rails.root.join('spec/fixtures') }
   let(:source_filepath) { File.join(fixture_directory, 'testimage.jpg') }
   let(:target_directory) { File.join(fixture_directory, 'target') }
@@ -13,9 +14,9 @@ describe CreateImageDerivative do
 
     describe '#call' do
       it "calls #convert! on a new instance" do
-        expect(subject).to receive(:new).with(source_filepath, target_filepath).and_call_original
+        expect(subject).to receive(:new).with(source_filepath, target_filepath, options).and_call_original
         expect_any_instance_of(described_class).to receive(:convert!).and_return('converted')
-        expect(subject.call(source_filepath, target_filepath)).to eq('converted')
+        expect(subject.call(source_filepath, target_filepath, options)).to eq('converted')
       end
     end
   end
