@@ -24,7 +24,7 @@ describe ConvertImage do
 
   describe '#source_image' do
     it "creates a VIPS::Image" do
-      expect(image).to receive(:original_realpath).and_return(fixture_image_path)
+      expect(image).to receive(:original_filepath).and_return(fixture_image_path)
       expect(subject.send(:source_image)).to be_a_kind_of(VIPS::Image)
     end
   end
@@ -40,7 +40,7 @@ describe ConvertImage do
 
   describe '#convert!' do
     let(:fixture_pyramid_path) { fixture_path.join('testimage.tiff').to_s }
-    let(:image) { instance_double(Image, original_realpath: fixture_image_path, realpath: fixture_pyramid_path)}
+    let(:image) { instance_double(Image, original_filepath: fixture_image_path, pyramid_filepath: fixture_pyramid_path)}
 
     before do
       File.delete(fixture_pyramid_path) if File.exist?(fixture_pyramid_path)

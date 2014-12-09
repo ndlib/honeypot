@@ -18,7 +18,7 @@ class CopyImage
   end
 
   def save_path
-    image.original_realpath
+    image.original_filepath
   end
 
   private

@@ -3,22 +3,30 @@ require 'pathname'
 
 class Image
 
-  attr_reader :namespace, :filename
+  attr_reader :relative_filepath
 
-  def self.find(filepath)
-    new(filepath)
+  def self.find(relative_filepath)
+    new(relative_filepath)
   end
 
-  def initialize(filepath)
-    set_namespace_and_filename(filepath)
+  def initialize(relative_filepath)
+    @relative_filepath = relative_filepath
   end
 
-  def original_realpath
-    @original_realpath ||= find_original_filepath
+  def original_filepath
+    full_filepath(basename)
+  end
+
+  def pyramid_filepath
+    full_filepath(File.join("pyramid", pyramid_basename))
   end
 
   def uri_path
-    "#{namespace}/#{filename}"
+    relative_path.to_s
+  end
+
+  def uri_basename
+    basename.to_s
   end
 
   def width
@@ -30,15 +38,11 @@ class Image
   end
 
   def type
-    @type ||= FastImage.type(original_realpath)
+    @type ||= FastImage.type(original_filepath)
   end
 
   def size
-    @size ||= FastImage.size(original_realpath)
-  end
-
-  def realpath
-    File.join(basepath, filename + ".tif")
+    @size ||= FastImage.size(original_filepath)
   end
 
   def self.image_root
@@ -47,29 +51,31 @@ class Image
 
   private
 
-    def basepath
-      @basepath ||= File.join(self.class.image_root, namespace)
+    def basename
+      relative_pathname.basename
     end
 
-    def original_basepath
-      File.join(basepath, "original")
+    def pyramid_basename
+      basename.sub_ext('.tif')
     end
 
-    def find_original_filepath
-      Dir[original_searchpath].first || original_fullpath_fallback
+    def relative_pathname
+      @relative_pathname ||= Pathname.new(relative_filepath)
     end
 
-    def original_fullpath_fallback
-      File.join(original_basepath, "#{filename}.jpg")
+    def relative_path
+      relative_pathname.dirname
     end
 
-    def original_searchpath
-      File.join(original_basepath, "#{filename}.*")
+    def base_full_filepath
+      @base_full_filepath ||= File.join(self.class.image_root, relative_path)
     end
 
-    def set_namespace_and_filename(filepath)
-      pathname = Pathname.new(filepath)
-      @namespace = pathname.dirname.to_s
-      @filename = pathname.basename().to_s
+    def full_filepath(path = nil)
+      if path.present?
+        File.join(base_full_filepath, path)
+      else
+        base_full_filepath
+      end
     end
 end

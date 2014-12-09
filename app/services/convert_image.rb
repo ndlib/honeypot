@@ -24,11 +24,11 @@ class ConvertImage
   private
 
     def source_path
-      image.original_realpath
+      image.original_filepath
     end
 
     def output_path
-      image.realpath
+      image.pyramid_filepath
     end
 
     def source_image

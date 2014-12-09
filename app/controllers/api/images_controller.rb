@@ -17,7 +17,7 @@ class Api::ImagesController < ApplicationController
     @image = Image.new(params[:image_path])
     respond_to do |format|
       format.json { render json: {image: ImageJsonFormatter.new(@image)} }
-      format.jpg { send_file @image.original_realpath }
+      format.jpg { send_file @image.original_filepath }
     end
   end
 end
