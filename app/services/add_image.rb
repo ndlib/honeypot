@@ -1,44 +1,67 @@
 class AddImage
-  attr_reader :image, :params
+  include ActiveModel::Validations
+  attr_reader :image, :application_id, :group_id, :item_id
 
-  def self.call(params)
-    self.new(params).upload!
-  end
+  validates :image, presence: true
+  validates :application_id, presence: true
+  validates :group_id, presence: true, numericality: true
+  validates :item_id, presence: true, numericality: true
 
   def initialize(params)
-    @params = params
+    @image = params[:image]
+    @application_id = params[:application_id]
+    @group_id = params[:group_id]
+    @item_id = params[:item_id]
   end
 
   def upload!
-    copy_image
-    convert_image
-
-    image
-  end
-
-  def basefilename
-    File.basename(uploaded_image.original_filename, '.*')
+    if valid?
+      copy_image
+      convert_image
+      true
+    else
+      false
+    end
   end
 
   def filepath
-    File.join(params[:namespace], basefilename)
+    File.join(basepath, filename)
   end
 
-  def image
-    @image ||= Image.new(filepath)
+  def image_object
+    @image_object ||= Image.new(filepath)
   end
 
   private
+    def filename
+      image.original_filename
+    end
 
-    def uploaded_image
-      params[:image]
+    def basepath
+      File.join(application_path, group_path, item_path)
+    end
+
+    def application_path
+      application_id
+    end
+
+    def group_path
+      id_partition(group_id)
+    end
+
+    def item_path
+      id_partition(item_id)
+    end
+
+    def id_partition(id)
+      ("%06d" % id).scan(/\d{3}/).join("/")
     end
 
     def copy_image
-      CopyImage.call(uploaded_image, image)
+      CopyImage.call(image, image_object)
     end
 
     def convert_image
-      ConvertImage.call(image)
+      ConvertImage.call(image_object)
     end
 end

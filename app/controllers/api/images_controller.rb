@@ -5,8 +5,12 @@ class Api::ImagesController < ApplicationController
   end
 
   def create
-    @image = AddImage.call(params)
-    render json: {image: ImageJsonFormatter.new(@image)}
+    @image = AddImage.new(params)
+    if @image.upload!
+      render json: {image: ImageJsonFormatter.new(@image.image_object)}
+    else
+      render json: {error: @image.errors}, status: 500
+    end
   end
 
   def show
