@@ -18,10 +18,17 @@ class ConvertImage
   end
 
   def convert!
+    verify_directory
     tiff_writer.write(output_path)
   end
 
   private
+    def verify_directory
+      dirname = File.dirname(output_path)
+      unless File.directory?(dirname)
+        FileUtils.mkdir_p(dirname)
+      end
+    end
 
     def source_path
       image.original_filepath

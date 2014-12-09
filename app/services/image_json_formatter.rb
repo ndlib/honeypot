@@ -12,6 +12,7 @@ class ImageJsonFormatter
       width: image.width,
       height: image.height,
       path: image.uri_path,
+      basename: image.uri_basename,
       host: Rails.configuration.settings.host,
     }
   end
