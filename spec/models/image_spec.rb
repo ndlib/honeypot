@@ -2,56 +2,71 @@ require 'rails_helper'
 
 describe Image do
   subject { described_class.new(filepath) }
-  let(:base_full_filepath) { File.join(Rails.root, 'public/images', path) }
-  let(:path) { '/test/000/001/000/002' }
-  let(:filename) { 'testimage.jpg' }
-  let(:filepath) { File.join(path, filename) }
+  let(:realpath) { File.join(Rails.root, 'spec/fixtures/testimage.jpg') }
+  let(:fakepath) { File.join(Rails.root, 'public/images/test/image.jpg') }
+  let(:filepath) { fakepath }
 
-  it "looks up the width from the file" do
-    expect(FastImage).to receive(:size).with(subject.original_filepath).and_return([1200, 1600])
-    expect(subject.width).to eq(1200)
-  end
+  describe 'existing image' do
+    let(:filepath) { realpath }
 
-  it "looks up the height from the file" do
-    expect(FastImage).to receive(:size).with(subject.original_filepath).and_return([1200, 1600])
-    expect(subject.height).to eq(1600)
-  end
+    describe '#size' do
+      it "returns the dimensions" do
+        expect(subject.size).to eq ([1200, 1600])
+      end
+    end
 
-  it "looks up the type from the file" do
-    expect(FastImage).to receive(:type).with(subject.original_filepath).and_return(:jpeg)
-    expect(subject.type).to eq(:jpeg)
-  end
+    describe '#exists?' do
+      it "returns true" do
+        expect(subject.exists?).to be_truthy
+      end
+    end
 
-  it "returns the original_filepath" do
-    expect(subject.original_filepath).to eq("#{base_full_filepath}/testimage.jpg")
-  end
-
-  it "returns a derivative filepath" do
-    expect(subject.derivative_filepath(:small)).to eq("#{base_full_filepath}/small/testimage.jpg")
-  end
-
-  it "returns the pyramid_filepath" do
-    expect(subject.pyramid_filepath).to eq("#{base_full_filepath}/pyramid/testimage.tif")
-  end
-
-  describe '#uri_path' do
-    it "is the relative path" do
-      expect(subject.uri_path).to eq(path)
+    describe '#type' do
+      it "is the type of image" do
+        expect(subject.type).to eq(:jpeg)
+      end
     end
   end
 
-  describe '#uri_basename' do
-    it "is the basename of the file" do
-      expect(subject.uri_basename).to eq(filename)
+  describe '#width' do
+    it "returns the first value from size" do
+      expect(subject).to receive(:size).and_return([1200, 1600])
+      expect(subject.width).to eq(1200)
     end
+
+    it "returns nil when size is nil" do
+      expect(subject.width).to be_nil
+    end
+  end
+
+  describe '#height' do
+    it "returns the second value from size" do
+      expect(subject).to receive(:size).and_return([1200, 1600])
+      expect(subject.height).to eq(1600)
+    end
+
+    it "returns nil when size is nil" do
+      expect(subject.height).to be_nil
+    end
+  end
+
+  describe '#size' do
+    it "returns nil when the file isn't present" do
+      expect(subject.size).to be_nil
+    end
+  end
+
+  describe '#type' do
+    it "returns nil when the file isn't present" do
+      expect(subject.type).to be_nil
+    end
+  end
+
+  it "returns the filepath" do
+    expect(subject.filepath).to eq(filepath)
   end
 
   describe '#exists?' do
-    it "returns true when the file is present" do
-      expect(subject).to receive(:original_filepath).and_return(File.join(Rails.root, 'spec/fixtures/testimage.jpg'))
-      expect(subject.exists?).to be_truthy
-    end
-
     it "returns false when the file is not present" do
       expect(subject.exists?).to be_falsy
     end

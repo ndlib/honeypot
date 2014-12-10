@@ -1,18 +1,18 @@
 require 'rails_helper'
 
 describe ConvertImage do
-  subject { described_class.new(image) }
+  subject { described_class.new(image_set) }
 
-  let(:image) { instance_double(Image, original_filepath: 'source', pyramid_filepath: 'pyramid_target') }
+  let(:image_set) { instance_double(ImageSet, original_filepath: 'source', pyramid_filepath: 'pyramid_target') }
 
   describe 'self' do
     subject { described_class }
 
     describe '#call' do
       it "calls convert on a new instance" do
-        expect(subject).to receive(:new).with(image).and_call_original
+        expect(subject).to receive(:new).with(image_set).and_call_original
         expect_any_instance_of(described_class).to receive(:convert!).and_return('converted')
-        expect(subject.call(image)).to eq('converted')
+        expect(subject.call(image_set)).to eq('converted')
       end
     end
   end
@@ -42,7 +42,7 @@ describe ConvertImage do
 
   describe '#create_thumbnail!' do
     it 'calls CreateThumbnail' do
-      expect(image).to receive(:derivative_filepath).with(:small).and_return('small')
+      expect(image_set).to receive(:derivative_filepath).with(:small).and_return('small')
       expect(CreateThumbnail).to receive(:call).with('source', 'small', {height: 200})
       subject.send(:create_thumbnail!, :small, {height: 200})
     end

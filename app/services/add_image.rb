@@ -28,8 +28,8 @@ class AddImage
     File.join(basepath, filename)
   end
 
-  def image_object
-    @image_object ||= Image.new(filepath)
+  def image_set
+    @image_set ||= ImageSet.new(filepath)
   end
 
   private
@@ -58,10 +58,10 @@ class AddImage
     end
 
     def copy_image
-      CopyImage.call(image, image_object)
+      CopyImage.call(image, image_set)
     end
 
     def convert_image
-      ConvertImage.call(image_object)
+      ConvertImage.call(image_set)
     end
 end

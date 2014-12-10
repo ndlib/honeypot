@@ -8,16 +8,16 @@ class Api::ImagesController < ApplicationController
   def create
     @image = AddImage.new(params)
     if @image.upload!
-      render json: {image: ImageJsonFormatter.new(@image.image_object)}
+      render json: {image: ImageSetJsonFormatter.new(@image.image_set)}
     else
       render json: {error: @image.errors}, status: 500
     end
   end
 
   def show
-    @image = Image.find(params[:image_path])
+    @image_set = ImageSet.find(params[:image_path])
 
-    render json: {image: ImageJsonFormatter.new(@image)}
+    render json: {image: ImageSetJsonFormatter.new(@image_set)}
   end
 
   private

@@ -3,12 +3,12 @@ require 'action_dispatch/testing/test_process'
 describe CopyImage do
   subject { described_class }
 
-  let(:image) { Image.new("base/path/IMG_0143.jpg") }
+  let(:image_set) { ImageSet.new("base/path/IMG_0143.jpg") }
   let(:upload_file) { Rack::Test::UploadedFile.new(Rails.root.join('spec/fixtures/testimage.jpg'), 'image/jpeg') }
   let(:root) { Rails.root }
 
   it "creates the correct path to save into" do
-    expect(subject.new(upload_file, image).save_path).to eq("#{root}/public/images/base/path/IMG_0143.jpg")
+    expect(subject.new(upload_file, image_set).save_path).to eq("#{root}/public/images/base/path/IMG_0143.jpg")
   end
 
   it "copies the image from the temp file path its save spot" do
@@ -16,14 +16,14 @@ describe CopyImage do
     expect_any_instance_of(described_class).to receive(:save_path).at_least(:once).and_return("/path")
     expect(File).to receive(:open).with("/path", "wb")
 
-    described_class.call(upload_file, image)
+    described_class.call(upload_file, image_set)
   end
 
 
   it "returns the file_path the file will be copied to" do
     upload_file # needed because there is a File.open in it
 
-    expect(File).to receive(:open).with(image.original_filepath, "wb")
-    expect(described_class.call(upload_file, image)).to eq("#{root}/public/images/base/path/IMG_0143.jpg")
+    expect(File).to receive(:open).with(image_set.original_filepath, "wb")
+    expect(described_class.call(upload_file, image_set)).to eq("#{root}/public/images/base/path/IMG_0143.jpg")
   end
 end

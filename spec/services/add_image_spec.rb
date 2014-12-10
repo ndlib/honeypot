@@ -53,14 +53,14 @@ RSpec.describe AddImage do
 
   describe '#copy_image' do
     it "takes the params and copies the image to the saved image directory" do
-      expect(CopyImage).to receive(:call).with(subject.image, subject.image_object)
+      expect(CopyImage).to receive(:call).with(subject.image, subject.image_set)
       subject.send(:copy_image)
     end
   end
 
   describe '#convert_image' do
     it "takes the params and converts the image have the image tiling" do
-      expect(ConvertImage).to receive(:call).with(subject.image_object)
+      expect(ConvertImage).to receive(:call).with(subject.image_set)
       subject.send(:convert_image)
     end
   end
