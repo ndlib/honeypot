@@ -4,3 +4,5 @@ rvm:
 script: "bundle exec rspec spec"
 before_install:
   - sudo apt-get install libvips-dev
+  - vips --version
+  - vipsthumbnail --help
