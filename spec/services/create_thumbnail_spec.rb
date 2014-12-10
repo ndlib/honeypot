@@ -36,7 +36,7 @@ RSpec.describe CreateThumbnail do
     end
   end
 
-  describe '#create_derivative!' do
+  describe '#create_derivative!', skip: :travis do
     let(:options) { {height: 200} }
 
     before do
