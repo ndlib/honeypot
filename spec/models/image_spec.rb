@@ -46,4 +46,29 @@ describe Image do
     end
   end
 
+  describe '#exists?' do
+    it "returns true when the file is present" do
+      expect(subject).to receive(:original_filepath).and_return(File.join(Rails.root, 'spec/fixtures/testimage.jpg'))
+      expect(subject.exists?).to be_truthy
+    end
+
+    it "returns false when the file is not present" do
+      expect(subject.exists?).to be_falsy
+    end
+  end
+
+  describe 'self' do
+    subject { described_class }
+    describe '#find' do
+      it "raises an error if the image file is not present" do
+        expect{subject.find('fakeimage.jpg')}.to raise_error(described_class::ImageNotFound)
+      end
+
+      it "returns an image object if the image file is present" do
+        expect_any_instance_of(described_class).to receive(:exists?).and_return(true)
+        expect(subject.find('foundimage.jpg')).to be_a_kind_of(described_class)
+      end
+    end
+  end
+
 end

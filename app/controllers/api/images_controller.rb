@@ -1,4 +1,5 @@
 class Api::ImagesController < ApplicationController
+  rescue_from Image::ImageNotFound, with: :image_not_found
   skip_before_action :verify_authenticity_token
 
   def new
@@ -14,10 +15,14 @@ class Api::ImagesController < ApplicationController
   end
 
   def show
-    @image = Image.new(params[:image_path])
-    respond_to do |format|
-      format.json { render json: {image: ImageJsonFormatter.new(@image)} }
-      format.jpg { send_file @image.original_filepath }
-    end
+    @image = Image.find(params[:image_path])
+
+    render json: {image: ImageJsonFormatter.new(@image)}
   end
+
+  private
+
+    def image_not_found(exception)
+      render json: {error: exception.message}, status: 404
+    end
 end

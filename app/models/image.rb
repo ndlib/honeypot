@@ -2,11 +2,17 @@ require 'fastimage'
 require 'pathname'
 
 class Image
+  class ImageNotFound < StandardError
+  end
 
   attr_reader :relative_filepath
 
   def self.find(relative_filepath)
-    new(relative_filepath)
+    image = new(relative_filepath)
+    if !image.exists?
+      raise ImageNotFound, "File not found: #{relative_filepath}"
+    end
+    image
   end
 
   def initialize(relative_filepath)
@@ -39,6 +45,10 @@ class Image
 
   def height
     size.last
+  end
+
+  def exists?
+    File.exists?(original_filepath)
   end
 
   def type
