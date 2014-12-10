@@ -32,6 +32,10 @@ class ImageSet
     full_filepath(File.join(style.to_s, derivative_basename))
   end
 
+  def derivatives
+    @derivatives ||= build_derivatives
+  end
+
   def exists?
     original.exists?
   end
@@ -52,6 +56,15 @@ class ImageSet
 
     def build_image(filepath)
       Image.new(filepath)
+    end
+
+    def build_derivatives
+      {}.tap do |derivatives_hash|
+        derivative_filepaths.each do |filepath|
+          name = derivative_name(filepath)
+          derivatives_hash[name] = build_image(filepath)
+        end
+      end
     end
 
     def basename_no_ext
@@ -80,5 +93,17 @@ class ImageSet
       else
         base_full_filepath
       end
+    end
+
+    def derivative_search_path
+      full_filepath("*/#{basename_no_ext}.*")
+    end
+
+    def derivative_filepaths
+      Dir[derivative_search_path]
+    end
+
+    def derivative_name(filepath)
+      Pathname.new(filepath).dirname.basename
     end
 end

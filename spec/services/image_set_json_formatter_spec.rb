@@ -3,7 +3,7 @@ require 'rails_helper'
 describe ImageSetJsonFormatter do
   subject{ described_class.new(image_set) }
 
-  let(:image_set) { instance_double(ImageSet, original: image, basename: 'image.jpg')}
+  let(:image_set) { ImageSet.new('path/to/image.jpg') }
   let(:image) { instance_double(Image, width: 1000, height: 1000, filepath: 'path/to/image.jpg')}
 
   describe '#to_hash' do
@@ -36,9 +36,11 @@ describe ImageSetJsonFormatter do
   end
 
   describe '#styles_hash' do
-    it "returns a hash of styles" do
-      expect(subject).to receive(:image_hash).with(image).and_return({key: 'value'})
-      expect(subject.send(:styles_hash)).to eq({original: {key: 'value'}})
+    it "returns a hash of styles including the original and derivatives" do
+      expect(subject).to receive(:image_hash).with(image_set.original).and_return({key: 'value'})
+      expect(subject).to receive(:image_hash).with(image).and_return({key2: 'value2'})
+      expect(image_set).to receive(:derivatives).and_return({small: image})
+      expect(subject.send(:styles_hash)).to eq({original: {key: 'value'}, small: {key2: 'value2'}})
     end
   end
 

@@ -11,6 +11,7 @@ class ImageJsonFormatter
     {
       width: image.width,
       height: image.height,
+      type: image.type,
       path: path,
     }
   end

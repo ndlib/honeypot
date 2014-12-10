@@ -30,9 +30,12 @@ class ImageSetJsonFormatter
     end
 
     def styles_hash
-      {
-        original: image_hash(image_set.original)
-      }
+      {}.tap do |hash|
+        hash[:original] = image_hash(image_set.original)
+        image_set.derivatives.each do |key, image|
+          hash[key] = image_hash(image)
+        end
+      end
     end
 
     def image_hash(image)

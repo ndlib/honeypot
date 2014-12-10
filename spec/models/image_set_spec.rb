@@ -6,6 +6,8 @@ describe ImageSet do
   let(:path) { '/test/000/001/000/002' }
   let(:filename) { 'testimage.jpg' }
   let(:filepath) { File.join(path, filename) }
+  let(:fixture_directory) { File.join(Rails.root, 'spec/fixtures') }
+  let(:fixture_filepath) { File.join(fixture_directory, 'testimage.jpg') }
 
   it "returns the original_filepath" do
     expect(subject.send(:original_filepath)).to eq("#{base_full_filepath}/testimage.jpg")
@@ -21,12 +23,40 @@ describe ImageSet do
 
   describe '#exists?' do
     it "returns true when the original file exists" do
-      expect(subject.original).to receive(:filepath).and_return(File.join(Rails.root, 'spec/fixtures/testimage.jpg'))
+      expect(subject.original).to receive(:filepath).and_return(fixture_filepath)
       expect(subject.exists?).to be_truthy
     end
 
     it "returns false when the file is not present" do
       expect(subject.exists?).to be_falsy
+    end
+  end
+
+  describe '#derivative_filepaths' do
+    describe 'real files' do
+      subject { described_class.new('testimage.jpg') }
+      let(:styles) { [:large, :small] }
+      before do
+        allow(subject).to receive(:base_full_filepath).and_return(fixture_directory)
+        styles.each do |style|
+          derivative_filepath = subject.derivative_filepath(style)
+          FileUtils.mkdir_p(File.dirname(derivative_filepath))
+          FileUtils.touch(derivative_filepath)
+        end
+      end
+
+      after do
+        styles.each do |style|
+          derivative_filepath = subject.derivative_filepath(style)
+          File.delete(derivative_filepath)
+          Dir.rmdir(File.dirname(derivative_filepath))
+        end
+      end
+
+      it "returns file paths" do
+        expected_paths = styles.collect{|style| subject.derivative_filepath(style)}
+        expect(subject.send(:derivative_filepaths)).to eq(expected_paths)
+      end
     end
   end
 
