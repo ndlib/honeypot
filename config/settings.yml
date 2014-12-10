@@ -1,8 +1,8 @@
 # Store non-sensitive configuration settings here.  Acessible from Rails.configuration.settings
 defaults: &defaults
   image_path: 'public/images'
-  vips_command: '/usr/local/bin/vips'
-  vips_thumbnail_command: '/usr/local/bin/vipsthumbnail'
+  vips_command: 'vips'
+  vips_thumbnail_command: 'vipsthumbnail'
 
 local: &local
   <<: *defaults
@@ -10,6 +10,8 @@ local: &local
 
 vm: &vm
   <<: *defaults
+  vips_command: '/usr/local/bin/vips'
+  vips_thumbnail_command: '/usr/local/bin/vipsthumbnail'
 
 development:
   <<: *local

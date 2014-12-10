@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe AddImage do
+RSpec.describe AddImage do
   let(:upload_file) { Rack::Test::UploadedFile.new(Rails.root.join('spec/fixtures/testimage.jpg'), 'image/jpeg') }
   let(:params) { { application_id: 'application', group_id: 1, item_id: 2, image: upload_file } }
   subject { described_class.new(params) }
