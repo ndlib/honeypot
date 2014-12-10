@@ -5,11 +5,6 @@ Rails.application.routes.draw do
     get 'images/*image_path', to: 'images#show', format: false, as: :image
   end
 
-  scope module: :api do
-    resources :images, only: [:new, :create]
-    get 'images/*image_path', to: 'images#show', format: false, as: :image
-  end
-
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
