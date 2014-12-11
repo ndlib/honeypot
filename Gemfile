@@ -58,5 +58,7 @@ group :development, :test do
   gem 'guard-bundler'
   gem "growl"
 
+  gem 'coveralls', require: false
+
 end
 
