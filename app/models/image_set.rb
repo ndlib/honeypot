@@ -1,13 +1,15 @@
 require 'pathname'
 
 class ImageSet
+  class ImageNotFound < StandardError
+  end
 
   attr_reader :relative_filepath
 
   def self.find(relative_filepath)
     image_set = new(relative_filepath)
     if !image_set.exists?
-      raise Image::ImageNotFound, "File not found: #{relative_filepath}"
+      raise ImageNotFound, "File not found: #{relative_filepath}"
     end
     image_set
   end
@@ -59,7 +61,7 @@ class ImageSet
     end
 
     def build_derivatives
-      {}.tap do |derivatives_hash|
+      {}.with_indifferent_access.tap do |derivatives_hash|
         derivative_filepaths.each do |filepath|
           name = derivative_name(filepath)
           derivatives_hash[name] = build_image(filepath)
@@ -104,6 +106,6 @@ class ImageSet
     end
 
     def derivative_name(filepath)
-      Pathname.new(filepath).dirname.basename
+      Pathname.new(filepath).dirname.basename.to_s
     end
 end

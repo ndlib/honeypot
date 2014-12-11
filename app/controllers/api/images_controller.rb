@@ -1,5 +1,5 @@
 class Api::ImagesController < ApplicationController
-  rescue_from Image::ImageNotFound, with: :image_not_found
+  rescue_from ImageSet::ImageNotFound, with: :image_not_found
   skip_before_action :verify_authenticity_token
 
   def new

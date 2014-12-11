@@ -36,6 +36,19 @@ RSpec.describe CreateThumbnail do
     end
   end
 
+  describe '#vips_command_target' do
+    it "appends a quality setting for jpg" do
+      expect(subject.send(:vips_command_target)).to eq("-o #{target_filepath}[Q=60]")
+    end
+
+    describe 'png' do
+      let(:target_filepath) { File.join(fixture_directory, 'testthumbnail.png') }
+      it "does not append a quality setting for png" do
+        expect(subject.send(:vips_command_target)).to eq("-o #{target_filepath}")
+      end
+    end
+  end
+
   describe '#create_derivative!', ignore: :travis do
     let(:options) { {height: 200} }
 
