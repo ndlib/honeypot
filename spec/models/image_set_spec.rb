@@ -56,7 +56,9 @@ describe ImageSet do
     describe '#derivative_filepaths' do
       it "returns file paths" do
         expected_paths = styles.collect{|style| subject.derivative_filepath(style)}
-        expect(subject.send(:derivative_filepaths)).to eq(expected_paths)
+        expected_paths.each do |path|
+          expect(subject.send(:derivative_filepaths)).to include(path)
+        end
       end
     end
 
