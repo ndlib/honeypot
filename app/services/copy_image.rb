@@ -1,12 +1,12 @@
 class CopyImage
-  attr_reader :image, :uploaded_file
+  attr_reader :image_set, :uploaded_file
 
-  def self.call(uploaded_file, image)
-    new(uploaded_file, image).copy
+  def self.call(uploaded_file, image_set)
+    new(uploaded_file, image_set).copy
   end
 
-  def initialize(uploaded_file, image)
-    @image = image
+  def initialize(uploaded_file, image_set)
+    @image_set = image_set
     @uploaded_file = uploaded_file
   end
 
@@ -18,7 +18,7 @@ class CopyImage
   end
 
   def save_path
-    image.original_realpath
+    image_set.original_filepath
   end
 
   private

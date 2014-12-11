@@ -2,74 +2,46 @@ require 'fastimage'
 require 'pathname'
 
 class Image
+  class ImageNotFound < StandardError
+  end
 
-  attr_reader :namespace, :filename
+  attr_reader :filepath
 
   def self.find(filepath)
-    new(filepath)
+    image = new(filepath)
+    if !image.exists?
+      raise ImageNotFound, "File not found: #{filepath}"
+    end
+    image
   end
 
   def initialize(filepath)
-    set_namespace_and_filename(filepath)
-  end
-
-  def original_realpath
-    @original_realpath ||= find_original_filepath
-  end
-
-  def uri_path
-    "#{namespace}/#{filename}"
+    @filepath = filepath
   end
 
   def width
-    size.first
+    size_array[0]
   end
 
   def height
-    size.last
+    size_array[1]
+  end
+
+  def exists?
+    File.exists?(filepath)
   end
 
   def type
-    @type ||= FastImage.type(original_realpath)
+    @type ||= FastImage.type(filepath)
   end
 
   def size
-    @size ||= FastImage.size(original_realpath)
-  end
-
-  def realpath
-    File.join(basepath, filename + ".tif")
-  end
-
-  def self.image_root
-    @image_root ||= File.join(Rails.root, Rails.configuration.settings.image_path)
+    @size ||= FastImage.size(filepath)
   end
 
   private
 
-    def basepath
-      @basepath ||= File.join(self.class.image_root, namespace)
-    end
-
-    def original_basepath
-      File.join(basepath, "original")
-    end
-
-    def find_original_filepath
-      Dir[original_searchpath].first || original_fullpath_fallback
-    end
-
-    def original_fullpath_fallback
-      File.join(original_basepath, "#{filename}.jpg")
-    end
-
-    def original_searchpath
-      File.join(original_basepath, "#{filename}.*")
-    end
-
-    def set_namespace_and_filename(filepath)
-      pathname = Pathname.new(filepath)
-      @namespace = pathname.dirname.to_s
-      @filename = pathname.basename().to_s
+    def size_array
+      size || []
     end
 end

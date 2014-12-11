@@ -1,62 +1,50 @@
 require 'rails_helper'
 
 describe ConvertImage do
-  subject { described_class.new(image) }
+  subject { described_class.new(image_set) }
 
-  let(:fixture_path) { Rails.root.join('spec/fixtures') }
-  let(:fixture_image_path) { fixture_path.join('testimage.jpg').to_s }
-  let(:image_path) { 'path/1/1' }
-  let(:filepath) { '/spec/fixtures/testimage'}
-  let(:image) { Image.new("#{image_path}/filename") }
-  let(:root) { Rails.root }
+  let(:image_set) { instance_double(ImageSet, original_filepath: 'source', pyramid_filepath: 'pyramid_target') }
 
   describe 'self' do
     subject { described_class }
 
     describe '#call' do
       it "calls convert on a new instance" do
-        expect(subject).to receive(:new).with(image).and_call_original
+        expect(subject).to receive(:new).with(image_set).and_call_original
         expect_any_instance_of(described_class).to receive(:convert!).and_return('converted')
-        expect(subject.call(image)).to eq('converted')
+        expect(subject.call(image_set)).to eq('converted')
       end
     end
   end
 
-  describe '#source_image' do
-    it "creates a VIPS::Image" do
-      expect(image).to receive(:original_realpath).and_return(fixture_image_path)
-      expect(subject.send(:source_image)).to be_a_kind_of(VIPS::Image)
-    end
-  end
-
-  describe '#tiff_writer' do
-    it "creates a VIPS::TIFFWriter with the source image" do
-      source_image = instance_double(VIPS::Image)
-      expect(subject).to receive(:source_image).and_return(source_image)
-      expect(VIPS::TIFFWriter).to receive(:new).with(source_image, described_class::PYRAMID_TIFF_OPTIONS).and_return('tiff_writer')
-      expect(subject.send(:tiff_writer)).to eq('tiff_writer')
-    end
-  end
-
   describe '#convert!' do
-    let(:fixture_pyramid_path) { fixture_path.join('testimage.tiff').to_s }
-    let(:image) { instance_double(Image, original_realpath: fixture_image_path, realpath: fixture_pyramid_path)}
-
-    before do
-      File.delete(fixture_pyramid_path) if File.exist?(fixture_pyramid_path)
-    end
-
-    after do
-      File.delete(fixture_pyramid_path) if File.exist?(fixture_pyramid_path)
-    end
-
-    it 'creates a pyramid tiff' do
-      expect(File.exist?(fixture_pyramid_path)).to be_falsy
+    it 'calls #create_pyramid_tiff! and #create_thumbnails!' do
+      expect(subject).to receive(:create_pyramid_tiff!)
+      expect(subject).to receive(:create_thumbnails!)
       subject.convert!
-      expect(File.exist?(fixture_pyramid_path)).to be_truthy
-      original = VIPS::Image.new(fixture_image_path)
-      pyramid = VIPS::Image.new(fixture_pyramid_path)
-      expect(pyramid.size).to eq(original.size)
+    end
+  end
+
+  describe '#create_pyramid_tiff!' do
+    it 'calls CreatePyramidTiff' do
+      expect(CreatePyramidTiff).to receive(:call).with('source', 'pyramid_target')
+      subject.send(:create_pyramid_tiff!)
+    end
+  end
+
+  describe '#create_thumbnails' do
+    it 'creates three thumbnails' do
+      expect(subject).to receive(:create_thumbnail!).with(:small, {height: 200})
+      expect(subject).to receive(:create_thumbnail!).with(:medium, {height: 800})
+      subject.send(:create_thumbnails!)
+    end
+  end
+
+  describe '#create_thumbnail!' do
+    it 'calls CreateThumbnail' do
+      expect(image_set).to receive(:derivative_filepath).with(:small).and_return('small')
+      expect(CreateThumbnail).to receive(:call).with('source', 'small', {height: 200})
+      subject.send(:create_thumbnail!, :small, {height: 200})
     end
   end
 

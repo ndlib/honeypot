@@ -49,6 +49,7 @@ group :development, :test do
   gem "spring-commands-rspec"
 
   gem 'rspec-rails', '~> 3.0'
+  gem 'rspec-collection_matchers'
 
   gem 'guard'
   gem 'guard-rspec', require: false
@@ -56,6 +57,8 @@ group :development, :test do
   gem 'guard-coffeescript'
   gem 'guard-bundler'
   gem "growl"
+
+  gem 'coveralls', require: false
 
 end
 

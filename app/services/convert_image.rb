@@ -1,42 +1,42 @@
 require 'vips'
 
 class ConvertImage
-  PYRAMID_TIFF_OPTIONS = {
-    compression: :jpeg,
-    quality: 80,
-    multi_res: :pyramid,
-    tile_size: [256, 256]
+  attr_reader :image_set
+  THUMBNAILS = {
+    small: {height: 200},
+    medium: {height: 800},
   }
-  attr_reader :image
 
-  def self.call(image)
-    new(image).convert!
+  def self.call(image_set)
+    new(image_set).convert!
   end
 
-  def initialize(image)
-    @image = image
+  def initialize(image_set)
+    @image_set = image_set
   end
 
   def convert!
-    tiff_writer.write(output_path)
+    create_pyramid_tiff!
+    create_thumbnails!
   end
 
   private
-
-    def source_path
-      image.original_realpath
+    def source_filepath
+      image_set.original_filepath
     end
 
-    def output_path
-      image.realpath
+    def create_pyramid_tiff!
+      CreatePyramidTiff.call(source_filepath, image_set.pyramid_filepath)
     end
 
-    def source_image
-      @source_image ||= VIPS::Image.new(source_path)
+    def create_thumbnails!
+      THUMBNAILS.each do |style, options|
+        create_thumbnail!(style, options)
+      end
     end
 
-    def tiff_writer
-      @tiff_writer ||= VIPS::TIFFWriter.new(source_image, PYRAMID_TIFF_OPTIONS)
+    def create_thumbnail!(style, options)
+      CreateThumbnail.call(source_filepath, image_set.derivative_filepath(style), options)
     end
 
 end

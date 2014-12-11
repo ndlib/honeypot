@@ -2,40 +2,88 @@ require 'rails_helper'
 
 describe Image do
   subject { described_class.new(filepath) }
-  let(:filepath) { '/spec/fixtures/testimage'}
-  let(:root) { Rails.root }
+  let(:realpath) { File.join(Rails.root, 'spec/fixtures/testimage.jpg') }
+  let(:fakepath) { File.join(Rails.root, 'public/images/test/image.jpg') }
+  let(:filepath) { fakepath }
 
-  [:filename, :width, :height, :uri_path, :type, :realpath, :original_realpath].each do |attr|
-    it "has the field, #{attr}" do
-      expect(subject).to respond_to attr
+  describe 'existing image' do
+    let(:filepath) { realpath }
+
+    describe '#size' do
+      it "returns the dimensions" do
+        expect(subject.size).to eq ([1200, 1600])
+      end
+    end
+
+    describe '#exists?' do
+      it "returns true" do
+        expect(subject.exists?).to be_truthy
+      end
+    end
+
+    describe '#type' do
+      it "is the type of image" do
+        expect(subject.type).to eq(:jpeg)
+      end
     end
   end
 
-  it "looks up the width from the file" do
-    expect(FastImage).to receive(:size).and_return([1200, 1600])
-    expect(subject.width).to eq(1200)
+  describe '#width' do
+    it "returns the first value from size" do
+      expect(subject).to receive(:size).and_return([1200, 1600])
+      expect(subject.width).to eq(1200)
+    end
+
+    it "returns nil when size is nil" do
+      expect(subject.width).to be_nil
+    end
   end
 
-  it "looks up the height from the file" do
-    expect(FastImage).to receive(:size).and_return([1200, 1600])
-    expect(subject.height).to eq(1600)
+  describe '#height' do
+    it "returns the second value from size" do
+      expect(subject).to receive(:size).and_return([1200, 1600])
+      expect(subject.height).to eq(1600)
+    end
+
+    it "returns nil when size is nil" do
+      expect(subject.height).to be_nil
+    end
   end
 
-  it "looks up the type from the file" do
-    expect(FastImage).to receive(:type).and_return(:jpeg)
-    expect(subject.type).to eq(:jpeg)
+  describe '#size' do
+    it "returns nil when the file isn't present" do
+      expect(subject.size).to be_nil
+    end
   end
 
-  it "sets the original_realpath" do
-    expect(subject.original_realpath).to eq("#{root}/public/images/spec/fixtures/original/testimage.jpg")
+  describe '#type' do
+    it "returns nil when the file isn't present" do
+      expect(subject.type).to be_nil
+    end
   end
 
-  it "sets the realpath" do
-    expect(subject.realpath).to eq("#{root}/public/images/spec/fixtures/testimage.tif")
+  it "returns the filepath" do
+    expect(subject.filepath).to eq(filepath)
   end
 
-  it "gets the filename" do
-    expect(subject.filename).to eq("testimage")
+  describe '#exists?' do
+    it "returns false when the file is not present" do
+      expect(subject.exists?).to be_falsy
+    end
+  end
+
+  describe 'self' do
+    subject { described_class }
+    describe '#find' do
+      it "raises an error if the image file is not present" do
+        expect{subject.find('fakeimage.jpg')}.to raise_error(described_class::ImageNotFound)
+      end
+
+      it "returns an image object if the image file is present" do
+        expect_any_instance_of(described_class).to receive(:exists?).and_return(true)
+        expect(subject.find('foundimage.jpg')).to be_a_kind_of(described_class)
+      end
+    end
   end
 
 end

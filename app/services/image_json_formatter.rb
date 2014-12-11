@@ -11,9 +11,13 @@ class ImageJsonFormatter
     {
       width: image.width,
       height: image.height,
-      path: image.uri_path,
-      host: Rails.configuration.settings.host,
+      type: image.type,
+      path: path,
     }
+  end
+
+  def path
+    ImageSet.full_to_relative_filepath(image.filepath)
   end
 
   def to_json(options = {})
