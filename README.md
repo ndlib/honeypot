@@ -1,6 +1,7 @@
 # Honeypot - Image processor and server
 
 [![Build Status](https://travis-ci.org/ndlib/honeypot.svg?branch=master)](https://travis-ci.org/ndlib/honeypot)
+[![Coverage Status](https://img.shields.io/coveralls/ndlib/honeypot.svg)](https://coveralls.io/r/ndlib/honeypot?branch=master)
 
 To run in development
 
