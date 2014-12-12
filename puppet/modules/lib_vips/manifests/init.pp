@@ -15,4 +15,36 @@ class lib_vips ( $vips_version = '7.40.11' ) {
     postextract_unless => $test_command,
     require => Package[$pkglist],
   }
+
+  file { '.bashrc':
+    name => '/home/app/.bashrc',
+    replace => true,
+    mode => "0644",
+    owner => "app",
+    group => "app",
+    content => template('lib_vips/.bashrc'),
+  }
+
+  file { '.bash_profile':
+    name => '/home/app/.bash_profile',
+    replace => true,
+    mode => "0644",
+    owner => "app",
+    group => "app",
+    content => template('lib_vips/.bash_profile'),
+  }
+
+  file { 'vips.conf':
+    name => '/etc/ld.so.conf.d/vips.conf',
+    replace => true,
+    mode => "0644",
+    content => template('lib_vips/vips.conf'),
+  }
+
+  exec { "reload-ldconfig":
+    subscribe => File['vips.conf'],
+    command => "/sbin/ldconfig",
+    refreshonly => true,
+  }
+
 }

@@ -1,5 +1,5 @@
 # config valid only for Capistrano 3.1
-lock '3.3.3'
+lock '3.3.4'
 
 set :application, 'honeypot'
 set :repo_url, 'https://github.com/ndlib/honeypot.git'
@@ -38,7 +38,7 @@ set :default_env, { path: "/opt/ruby/current/bin:$PATH" }
 # set :keep_releases, 5
 
 # Run the puppet scripts before bundle to make sure all dependencies are installed
-before "deploy:bundle", "und:puppet"
+before "bundler:install", "und:puppet"
 
 namespace :deploy do
 
