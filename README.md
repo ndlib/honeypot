@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/ndlib/honeypot.svg?branch=master)](https://travis-ci.org/ndlib/honeypot)
 [![Coverage Status](https://img.shields.io/coveralls/ndlib/honeypot.svg)](https://coveralls.io/r/ndlib/honeypot?branch=master)
+[![Code Climate](https://codeclimate.com/github/ndlib/honeypot/badges/gpa.svg)](https://codeclimate.com/github/ndlib/honeypot)
 
 To run in development
 
