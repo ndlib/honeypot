@@ -1,7 +1,5 @@
 language: ruby
-cache:
-  directories:
-  - vendor/bundle
+cache: bundler
 rvm:
   - 2.1.4
 script: "bundle exec rspec spec --tag '~ignore:travis'"
