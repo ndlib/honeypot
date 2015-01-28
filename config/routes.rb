@@ -1,9 +1,17 @@
 Rails.application.routes.draw do
+  default_url_options({
+    host: Rails.configuration.settings.host,
+    port: Rails.configuration.settings.port,
+    protocol: Rails.configuration.settings.protocol,
+  })
+
   namespace :api do
     resources :images, only: [:new, :create] do
     end
     get 'images/*image_path', to: 'images#show', format: false, as: :image
   end
+
+  root 'public#index'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -47,7 +47,7 @@ class ImageSet
   end
 
   def self.image_root
-    @image_root ||= File.join(Rails.root, Rails.configuration.settings.image_path)
+    @image_root ||= File.join(Rails.root, 'public', Rails.configuration.settings.image_path)
   end
 
   def self.full_to_relative_filepath(filepath)

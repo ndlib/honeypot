@@ -66,6 +66,12 @@ describe Image do
     expect(subject.filepath).to eq(filepath)
   end
 
+  describe '#relative_filepath' do
+    it 'returns the relative path' do
+      expect(subject.relative_filepath).to eq('/test/image.jpg')
+    end
+  end
+
   describe '#exists?' do
     it "returns false when the file is not present" do
       expect(subject.exists?).to be_falsy
