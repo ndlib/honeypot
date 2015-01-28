@@ -18,6 +18,7 @@ class ImageSetJsonFormatter
   def links
     {
       styles: styles,
+      dzi: dzi
     }
   end
 
@@ -38,13 +39,33 @@ class ImageSetJsonFormatter
     def styles
       [].tap do |array|
         array << image_hash(image_set.original, :original)
-        image_set.derivatives.each do |style, image|
+        derivatives_without_pyramid.each do |style, image|
           array << image_hash(image, style)
         end
       end
     end
 
+    def dzi
+      dzi_hash(pyramid_derivative)
+    end
+
+    def derivatives_without_pyramid
+      image_set.derivatives.reject{|key, value| key.to_sym == :pyramid}
+    end
+
+    def pyramid_derivative
+      image_set.derivatives[:pyramid]
+    end
+
     def image_hash(image, style)
       ImageJsonFormatter.new(image, style).to_hash
+    end
+
+    def dzi_hash(image)
+      if image
+        ImageDziJsonFormatter.new(image, :dzi).to_hash
+      else
+        nil
+      end
     end
 end

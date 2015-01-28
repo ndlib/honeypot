@@ -5,6 +5,7 @@ describe ImageSetJsonFormatter do
 
   let(:image_set) { ImageSet.new('path/to/image.jpg') }
   let(:image) { instance_double(Image, width: 1000, height: 1000, filepath: 'path/to/image.jpg')}
+  let(:pyramid_image) { instance_double(Image, width: 1000, height: 1000, filepath: 'path/to/image.tif') }
 
   describe '#to_hash' do
     it "returns a hash of the title, host, and styles" do
@@ -38,7 +39,8 @@ describe ImageSetJsonFormatter do
   describe '#links' do
     it "returns links to the styles" do
       expect(subject).to receive(:styles).and_return([{id: 'original'}])
-      expect(subject.links).to eq({styles: [{id: 'original'}]})
+      expect(subject).to receive(:dzi).and_return({id: 'dzi'})
+      expect(subject.links).to eq({styles: [{id: 'original'}], dzi: {id: 'dzi'}})
     end
   end
 
@@ -48,6 +50,20 @@ describe ImageSetJsonFormatter do
       expect(subject).to receive(:image_hash).with(image, :small).and_return({id: 'small'})
       expect(image_set).to receive(:derivatives).and_return({small: image})
       expect(subject.send(:styles)).to eq([{id: 'original'}, {id: 'small'}])
+    end
+  end
+
+  describe '#dzi' do
+    it "returns nil if there is no pyramid derivative" do
+      expect(image_set).to receive(:derivatives).and_return({})
+      expect(subject.send(:dzi)).to be_nil
+    end
+
+    it "returns a hash if the pyramid derivative is present" do
+      expect(image_set).to receive(:derivatives).and_return({pyramid: pyramid_image})
+      expect(ImageDziJsonFormatter).to receive(:new).with(pyramid_image, :dzi).and_call_original
+      expect_any_instance_of(ImageDziJsonFormatter).to receive(:to_hash).and_return({id: 'dzi'})
+      expect(subject.send(:dzi)).to eq({id: 'dzi'})
     end
   end
 

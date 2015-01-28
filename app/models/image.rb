@@ -39,6 +39,10 @@ class Image
     @size ||= FastImage.size(filepath)
   end
 
+  def relative_filepath
+    ImageSet.full_to_relative_filepath(filepath)
+  end
+
   private
 
     def size_array

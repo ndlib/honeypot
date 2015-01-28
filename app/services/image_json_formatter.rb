@@ -27,7 +27,7 @@ class ImageJsonFormatter
   end
 
   def path
-    ImageSet.full_to_relative_filepath(image.filepath)
+    image.relative_filepath
   end
 
   def to_json(options = {})

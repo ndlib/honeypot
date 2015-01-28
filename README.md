@@ -58,20 +58,20 @@ JSON
           "src":"http://localhost:3019/images/test/000/001/000/002/medium/1200x1600.jpg"
         },
         {
-          "id":"pyramid",
-          "width":1200,
-          "height":1600,
-          "type":"tiff",
-          "src":"http://localhost:3019/images/test/000/001/000/002/pyramid/1200x1600.tif"
-        },
-        {
           "id":"small",
           "width":150,
           "height":200,
           "type":"jpeg",
           "src":"http://localhost:3019/images/test/000/001/000/002/small/1200x1600.jpg"
         }
-      ]
+      ],
+      "dzi":{
+        "id":"dzi",
+        "width":1200,
+        "height":1600,
+        "type":"dzi",
+        "src":"http://localhost:3019/images/test/000/001/000/002/pyramid/1200x1600.tif.dzi"
+      }
     }
   }
 }
