@@ -10,8 +10,14 @@ class ImageSetJsonFormatter
   def to_hash(options = {})
     {
       title: title,
-      host: host,
-      styles: styles_hash,
+      href: href,
+      links: links
+    }
+  end
+
+  def links
+    {
+      styles: styles,
     }
   end
 
@@ -21,24 +27,24 @@ class ImageSetJsonFormatter
 
   private
 
-    def host
-      Rails.configuration.settings.host
+    def href
+      Rails.application.routes.url_helpers.api_image_url(image_set.relative_filepath)
     end
 
     def title
       image_set.basename.to_s
     end
 
-    def styles_hash
-      {}.tap do |hash|
-        hash[:original] = image_hash(image_set.original)
-        image_set.derivatives.each do |key, image|
-          hash[key] = image_hash(image)
+    def styles
+      [].tap do |array|
+        array << image_hash(image_set.original, :original)
+        image_set.derivatives.each do |style, image|
+          array << image_hash(image, style)
         end
       end
     end
 
-    def image_hash(image)
-      ImageJsonFormatter.new(image).to_hash
+    def image_hash(image, style)
+      ImageJsonFormatter.new(image, style).to_hash
     end
 end

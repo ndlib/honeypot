@@ -17,9 +17,10 @@ post multipart data to /api/images
 
 with the params
 
-namespace:  is a distinguishing variable to ensure that you are not overwritting other content.  I recomend starting with the name of the application posting and then anything else you need to ensure data integrity.  i.e. "application_name/id/otherid"
-
-image: "the image data "
+* application_id: String name of the application posting to the service, used for namespacing. e.g. "honeycomb"
+* group_id: Integer value identifying a group or collection the item belongs to, used for namespacing.
+* item_id: Integer value of the item the image belongs to.
+* image: Image upload file
 
 Faraday Example:
 ```ruby
@@ -29,7 +30,7 @@ connection ||= Faraday.new("http://localhost:3019") do |f|
   f.adapter :net_http
 end
 
-connection.post('/api/images', { namespace: 'namespace', image: Faraday::UploadIO.new(path_to_image, icontent_type) })
+connection.post('/api/images', { application_id: 'honeycomb', group_id: 1, item_id: 2, image: Faraday::UploadIO.new(path_to_image, icontent_type) })
 ```
 
 #### Data received back
@@ -38,28 +39,45 @@ JSON
 ```JSON
 {
   "image":{
-    "width":1200,
-    "height":1600,
-    "path":"namespace/IMG_0108",
-    "host":"imagetile.library.nd.edu"
+    "title":"1200x1600.jpg",
+    "href":"http://localhost:3019/api/images/test/000/001/000/002/1200x1600.jpg",
+    "links":{
+      "styles":[
+        {
+          "id":"original",
+          "width":1200,
+          "height":1600,
+          "type":"jpeg",
+          "src":"http://localhost:3019/images/test/000/001/000/002/1200x1600.jpg"
+        },
+        {
+          "id":"medium",
+          "width":600,
+          "height":800,
+          "type":"jpeg",
+          "src":"http://localhost:3019/images/test/000/001/000/002/medium/1200x1600.jpg"
+        },
+        {
+          "id":"pyramid",
+          "width":1200,
+          "height":1600,
+          "type":"tiff",
+          "src":"http://localhost:3019/images/test/000/001/000/002/pyramid/1200x1600.tif"
+        },
+        {
+          "id":"small",
+          "width":150,
+          "height":200,
+          "type":"jpeg",
+          "src":"http://localhost:3019/images/test/000/001/000/002/small/1200x1600.jpg"
+        }
+      ]
+    }
   }
 }
 ```
 
 ### to look up an image
+Retrieves them same JSON as above.
 
-GET http://localhost:3019/api/images/namespace/to/image
-
-
-retrieves
-JSON
-```JSON
-{
-  "image":{
-    "width":1200,
-    "height":1600,
-    "path":"namespace/to/image",
-    "host":"imagetile.library.nd.edu"
-  }
-}
-```
+GET http://localhost:3019/api/images/test/000/001/000/002/1200x1600.jpg

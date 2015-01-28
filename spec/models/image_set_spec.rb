@@ -102,7 +102,7 @@ describe ImageSet do
 
     describe '#image_root' do
       it "is the Rails root plus the config setting" do
-        expect(subject.image_root).to eq(File.join(Rails.root, Rails.configuration.settings.image_path))
+        expect(subject.image_root).to eq(File.join(Rails.root, 'public', Rails.configuration.settings.image_path))
       end
     end
 
