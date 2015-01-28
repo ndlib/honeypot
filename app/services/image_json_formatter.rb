@@ -10,12 +10,16 @@ class ImageJsonFormatter
 
   def to_hash
     {
-      id: style.to_s,
-      width: image.width,
-      height: image.height,
-      type: image.type,
+      id: id,
+      width: width,
+      height: height,
+      type: type,
       src: src
     }
+  end
+
+  def id
+    style.to_s
   end
 
   def src
@@ -28,5 +32,17 @@ class ImageJsonFormatter
 
   def to_json(options = {})
     to_hash.to_json(options)
+  end
+
+  def width
+    image.width
+  end
+
+  def height
+    image.height
+  end
+
+  def type
+    image.type
   end
 end
