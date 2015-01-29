@@ -38,41 +38,34 @@ connection.post('/api/images', { application_id: 'honeycomb', group_id: 1, item_
 JSON
 ```JSON
 {
-  "image":{
-    "title":"1200x1600.jpg",
-    "href":"http://localhost:3019/api/images/test/000/001/000/002/1200x1600.jpg",
-    "links":{
-      "styles":[
-        {
-          "id":"original",
-          "width":1200,
-          "height":1600,
-          "type":"jpeg",
-          "src":"http://localhost:3019/images/test/000/001/000/002/1200x1600.jpg"
-        },
-        {
-          "id":"medium",
-          "width":600,
-          "height":800,
-          "type":"jpeg",
-          "src":"http://localhost:3019/images/test/000/001/000/002/medium/1200x1600.jpg"
-        },
-        {
-          "id":"small",
-          "width":150,
-          "height":200,
-          "type":"jpeg",
-          "src":"http://localhost:3019/images/test/000/001/000/002/small/1200x1600.jpg"
-        }
-      ],
-      "dzi":{
-        "id":"dzi",
-        "width":1200,
-        "height":1600,
-        "type":"dzi",
-        "src":"http://localhost:3019/images/test/000/001/000/002/pyramid/1200x1600.tif.dzi"
-      }
-    }
+  "@context":"http://schema.org",
+  "@type":"ImageObject",
+  "@id":"http://localhost:3019/api/images/test/000/001/000/002/1200x1600.jpg",
+  "width":"1200 px",
+  "height":"1600 px",
+  "encodingFormat":"jpeg",
+  "contentUrl":"http://localhost:3019/images/test/000/001/000/002/1200x1600.jpg",
+  "name":"1200x1600.jpg",
+  "thumbnail/medium":{
+    "@type":"ImageObject",
+    "width":"600 px",
+    "height":"800 px",
+    "encodingFormat":"jpeg",
+    "contentUrl":"http://localhost:3019/images/test/000/001/000/002/medium/1200x1600.jpg"
+  },
+  "thumbnail/dzi":{
+    "@type":"ImageObject",
+    "width":"1200 px",
+    "height":"1600 px",
+    "encodingFormat":"dzi",
+    "contentUrl":"http://localhost:3019/images/test/000/001/000/002/pyramid/1200x1600.tif.dzi"
+  },
+  "thumbnail/small":{
+    "@type":"ImageObject",
+    "width":"150 px",
+    "height":"200 px",
+    "encodingFormat":"jpeg",
+    "contentUrl":"http://localhost:3019/images/test/000/001/000/002/small/1200x1600.jpg"
   }
 }
 ```

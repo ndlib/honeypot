@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   namespace :api do
     resources :images, only: [:new, :create] do
     end
-    get 'images/*image_path', to: 'images#show', format: false, as: :image
+    get 'images/*image_path', to: 'images#show', format: false, as: :image, defaults: {format: :json}
   end
 
   root 'public#index'
