@@ -31,18 +31,10 @@ FcgidMaxProcessesPerClass 1
   Header set Access-Control-Allow-Origin "*"
 </LocationMatch>
 
-<LocationMatch "/images">
+<LocationMatch "/images?/">
   RewriteEngine On
-  RewriteCond %{REQUEST_URI} ^/images/(.*[.]dzi)$
+  RewriteCond %{REQUEST_URI} ^/images?/(.*[.]dzi)$
   RewriteRule .* /iipsrv?DeepZoom=%1
-  RewriteCond %{REQUEST_URI} ^/images/(.*_files/[0-9]+/[0-9]+_[0-9]+[.]jpg)$
-  RewriteRule .* /iipsrv?DeepZoom=%1
-</LocationMatch>
-
-<LocationMatch "/image">
-  RewriteEngine On
-  RewriteCond %{REQUEST_URI} ^/image/(.*[.]dzi)$
-  RewriteRule .* /iipsrv?DeepZoom=%1
-  RewriteCond %{REQUEST_URI} ^/image/(.*_files/[0-9]+/[0-9]+_[0-9]+[.]jpg)$
+  RewriteCond %{REQUEST_URI} ^/images?/(.*_files/[0-9]+/[0-9]+_[0-9]+[.]jpg)$
   RewriteRule .* /iipsrv?DeepZoom=%1
 </LocationMatch>
