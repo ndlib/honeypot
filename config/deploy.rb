@@ -1,5 +1,5 @@
 # config valid only for Capistrano 3.1
-lock '3.3.4'
+lock '3.3.5'
 
 set :application, 'honeypot'
 set :repo_url, 'https://github.com/ndlib/honeypot.git'
