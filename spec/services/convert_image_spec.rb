@@ -42,7 +42,7 @@ describe ConvertImage do
 
   describe '#create_thumbnail!' do
     it 'calls CreateThumbnail' do
-      expect(image_set).to receive(:derivative_filepath).with(:small).and_return('small')
+      expect(image_set).to receive(:thumbnail_filepath).with(:small).and_return('small')
       expect(CreateThumbnail).to receive(:call).with('source', 'small', {height: 200})
       subject.send(:create_thumbnail!, :small, {height: 200})
     end

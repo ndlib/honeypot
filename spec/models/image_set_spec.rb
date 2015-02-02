@@ -18,6 +18,17 @@ describe ImageSet do
     expect(subject.derivative_filepath(:small)).to eq("#{base_full_filepath}/small/testimage.jpg")
   end
 
+  it "returns a thumbnail filepath" do
+    expect(subject.thumbnail_filepath(:small)).to eq("#{base_full_filepath}/small/testimage.jpg")
+  end
+
+  describe 'gif' do
+    let(:filename) { 'testgif.gif' }
+    it "returns a thumbnail filepath as a jpg" do
+      expect(subject.thumbnail_filepath(:small)).to eq("#{base_full_filepath}/small/testgif.jpg")
+    end
+  end
+
   it "returns the pyramid_filepath" do
     expect(subject.pyramid_filepath).to eq("#{base_full_filepath}/pyramid/testimage.tif")
   end

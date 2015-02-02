@@ -36,7 +36,7 @@ class ConvertImage
     end
 
     def create_thumbnail!(style, options)
-      CreateThumbnail.call(source_filepath, image_set.derivative_filepath(style), options)
+      CreateThumbnail.call(source_filepath, image_set.thumbnail_filepath(style), options)
     end
 
 end

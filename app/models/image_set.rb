@@ -30,6 +30,10 @@ class ImageSet
     derivative_filepath(:pyramid, pyramid_basename)
   end
 
+  def thumbnail_filepath(style)
+    derivative_filepath(style, thumbnail_basename)
+  end
+
   def derivative_filepath(style, derivative_basename = basename)
     full_filepath(File.join(style.to_s, derivative_basename))
   end
@@ -75,6 +79,10 @@ class ImageSet
 
     def pyramid_basename
       basename.sub_ext('.tif')
+    end
+
+    def thumbnail_basename
+      basename.sub_ext('.jpg')
     end
 
     def relative_pathname
