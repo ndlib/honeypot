@@ -1,6 +1,7 @@
 class Api::ImagesController < ApplicationController
   rescue_from ImageSet::ImageNotFound, with: :image_not_found
   skip_before_action :verify_authenticity_token
+  before_action :set_access
 
   def new
   end
@@ -18,6 +19,7 @@ class Api::ImagesController < ApplicationController
   def show
     image_set = ImageSet.find(params[:image_path])
     @image_set = ImageSetJsonDecorator.new(image_set)
+    expires_in 5.minutes, :public => true
     render formats: [:json]
   end
 
@@ -25,5 +27,9 @@ class Api::ImagesController < ApplicationController
 
     def image_not_found(exception)
       render json: {error: exception.message}, status: 404
+    end
+
+    def set_access
+      response.headers["Access-Control-Allow-Origin"] = "*"
     end
 end
