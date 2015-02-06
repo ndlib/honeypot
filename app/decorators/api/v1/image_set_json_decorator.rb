@@ -17,6 +17,14 @@ module API
         @derivatives ||= build_derivatives
       end
 
+      def updated_at
+        object.updated_at
+      end
+
+      def cache_key
+        id
+      end
+
       private
         def build_derivatives
           object.derivatives.collect{|derivative| API::V1::DerivativeJSONDecorator.new(derivative)}

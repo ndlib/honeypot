@@ -21,8 +21,9 @@ module API
       def show
         image_set = ImageSet.find(params[:image_path])
         @image_set = API::V1::ImageSetJSONDecorator.new(image_set)
-        expires_in 5.minutes, :public => true
-        render formats: [:json]
+
+        expires_in 5.minutes, public: true
+        fresh_when(last_modified: @image_set.updated_at.utc, etag: @image_set.cache_key, public: true)
       end
 
       private

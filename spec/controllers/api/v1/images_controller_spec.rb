@@ -25,17 +25,18 @@ RSpec.describe API::V1::ImagesController do
     end
 
     describe '#show' do
+      let(:real_path) { File.join(Rails.root, 'spec/fixtures/testimage.jpg') }
 
       it "renders json" do
-        expect_any_instance_of(ImageSet).to receive(:exists?).and_return(true)
-        get :show, image_path: "test/path/to/image.jpg"
+        expect_any_instance_of(ImageSet).to receive(:original_filepath).and_return(real_path)
+        get :show, image_path: "test/path/to/image.jpg", format: :json
         expect(response).to be_success
         expect(assigns(:image_set)).to be_a_kind_of(API::V1::ImageSetJSONDecorator)
         expect(response).to render_template("show")
       end
 
       it "returns an error when an image is not found" do
-        get :show, image_path: "test/path/to/image.jpg"
+        get :show, image_path: "test/path/to/image.jpg", format: :json
         expect(response).to be_missing
         expect(response.body).to eq("{\"error\":\"File not found: test/path/to/image.jpg\"}")
       end

@@ -22,6 +22,10 @@ class ImageSet
     @original ||= build_image(original_filepath)
   end
 
+  def updated_at
+    original.updated_at
+  end
+
   def original_filepath
     full_filepath(basename)
   end

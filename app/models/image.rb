@@ -43,6 +43,10 @@ class Image
     ImageSet.full_to_relative_filepath(filepath)
   end
 
+  def updated_at
+    File.mtime(filepath)
+  end
+
   private
 
     def size_array
