@@ -13,7 +13,7 @@ To run in development
 
 ### To send an image to server.
 
-post multipart data to /api/images
+post multipart data to /api/v1/images
 
 with the params
 
@@ -30,7 +30,7 @@ connection ||= Faraday.new("http://localhost:3019") do |f|
   f.adapter :net_http
 end
 
-connection.post('/api/images', { application_id: 'honeycomb', group_id: 1, item_id: 2, image: Faraday::UploadIO.new(path_to_image, icontent_type) })
+connection.post('/api/v1/images', { application_id: 'honeycomb', group_id: 1, item_id: 2, image: Faraday::UploadIO.new(path_to_image, icontent_type) })
 ```
 
 #### Data received back
@@ -40,7 +40,7 @@ JSON
 {
   "@context":"http://schema.org",
   "@type":"ImageObject",
-  "@id":"http://localhost:3019/api/images/test/000/001/000/002/1200x1600.jpg",
+  "@id":"http://localhost:3019/api/v1/images/test/000/001/000/002/1200x1600.jpg",
   "width":"1200 px",
   "height":"1600 px",
   "encodingFormat":"jpeg",
@@ -73,4 +73,4 @@ JSON
 ### to look up an image
 Retrieves them same JSON as above.
 
-GET http://localhost:3019/api/images/test/000/001/000/002/1200x1600.jpg
+GET http://localhost:3019/api/v1/images/test/000/001/000/002/1200x1600.jpg

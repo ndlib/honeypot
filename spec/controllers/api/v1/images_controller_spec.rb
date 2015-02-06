@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Api::ImagesController do
+RSpec.describe API::V1::ImagesController do
   let(:image_set) { instance_double(ImageSet) }
 
   describe "create" do
@@ -13,7 +13,7 @@ RSpec.describe Api::ImagesController do
       put :create, save_params
 
       expect(assigns(:image)).to be_a_kind_of(AddImage)
-      expect(assigns(:image_set)).to be_a_kind_of(ImageSetJsonDecorator)
+      expect(assigns(:image_set)).to be_a_kind_of(API::V1::ImageSetJsonDecorator)
       expect(response).to render_template("show")
     end
 
@@ -30,7 +30,7 @@ RSpec.describe Api::ImagesController do
         expect_any_instance_of(ImageSet).to receive(:exists?).and_return(true)
         get :show, image_path: "test/path/to/image.jpg"
         expect(response).to be_success
-        expect(assigns(:image_set)).to be_a_kind_of(ImageSetJsonDecorator)
+        expect(assigns(:image_set)).to be_a_kind_of(API::V1::ImageSetJsonDecorator)
         expect(response).to render_template("show")
       end
 
