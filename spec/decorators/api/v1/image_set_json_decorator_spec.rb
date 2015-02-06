@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe API::V1::ImageSetJsonDecorator do
+describe API::V1::ImageSetJSONDecorator do
   subject{ described_class.new(image_set) }
 
   let(:image_set) { ImageSet.new('path/to/image.jpg') }
@@ -24,7 +24,7 @@ describe API::V1::ImageSetJsonDecorator do
   describe '#image' do
     it "returns a decorated image" do
       expect(image_set).to receive(:original).and_return(image)
-      expect(API::V1::ImageJsonDecorator).to receive(:new).with(image).and_return('decorated')
+      expect(API::V1::ImageJSONDecorator).to receive(:new).with(image).and_return('decorated')
       expect(subject.image).to eq('decorated')
     end
   end
@@ -32,7 +32,7 @@ describe API::V1::ImageSetJsonDecorator do
   describe '#derivatives' do
     it "returns decorated derivatives" do
       expect(image_set).to receive(:derivatives).and_return([derivative])
-      expect(API::V1::DerivativeJsonDecorator).to receive(:new).with(derivative).and_return('decorated')
+      expect(API::V1::DerivativeJSONDecorator).to receive(:new).with(derivative).and_return('decorated')
       expect(subject.derivatives).to eq(['decorated'])
     end
   end

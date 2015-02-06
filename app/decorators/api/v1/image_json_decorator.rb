@@ -1,6 +1,6 @@
 module API
   module V1
-    class ImageJsonDecorator < Draper::Decorator
+    class ImageJSONDecorator < Draper::Decorator
       def width
         distance(object.width)
       end

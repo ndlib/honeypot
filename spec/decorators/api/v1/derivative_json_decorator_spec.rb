@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe API::V1::DerivativeJsonDecorator do
+describe API::V1::DerivativeJSONDecorator do
   subject{ described_class.new(derivative) }
 
   let(:image) { instance_double(Image, width: 1000, height: 1000, type: 'jpg', relative_filepath: 'path/to/image.jpg')}
@@ -9,7 +9,7 @@ describe API::V1::DerivativeJsonDecorator do
 
   describe '#image' do
     it "returns a decorated image" do
-      expect(API::V1::ImageJsonDecorator).to receive(:new).with(image).and_return('decorated')
+      expect(API::V1::ImageJSONDecorator).to receive(:new).with(image).and_return('decorated')
       expect(subject.image).to eq('decorated')
     end
   end

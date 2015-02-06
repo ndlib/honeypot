@@ -1,6 +1,6 @@
 module API
   module V1
-    class DerivativeJsonDecorator < Draper::Decorator
+    class DerivativeJSONDecorator < Draper::Decorator
       delegate :width, :height, to: :image
 
       def thumbnail_type
@@ -28,7 +28,7 @@ module API
       end
 
       def image
-        @image ||= API::V1::ImageJsonDecorator.new(object.image)
+        @image ||= API::V1::ImageJSONDecorator.new(object.image)
       end
 
       private

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe API::V1::ImageJsonDecorator do
+describe API::V1::ImageJSONDecorator do
   subject{ described_class.new(image) }
 
   let(:image) { instance_double(Image, width: 1000, height: 2000, type: 'jpg', relative_filepath: 'path/to/image.jpg')}

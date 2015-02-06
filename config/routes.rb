@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   })
 
   namespace :api do
-    resources :images, to: 'v1/images', as: :legacy_images, only: [:new, :create] do
+    resources :images, controller: 'v1/images', as: :legacy_images, only: [:new, :create] do
     end
     get 'images/*image_path', to: 'v1/images#show', format: false, as: :legacy_image, defaults: {format: :json}
     namespace :v1, as: :v1 do

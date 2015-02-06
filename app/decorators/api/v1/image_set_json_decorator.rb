@@ -1,12 +1,12 @@
 module API
   module V1
-    class ImageSetJsonDecorator < Draper::Decorator
+    class ImageSetJSONDecorator < Draper::Decorator
       def id
         h.api_v1_image_url(object.relative_filepath)
       end
 
       def image
-        API::V1::ImageJsonDecorator.new(object.original)
+        API::V1::ImageJSONDecorator.new(object.original)
       end
 
       def name
@@ -19,7 +19,7 @@ module API
 
       private
         def build_derivatives
-          object.derivatives.collect{|derivative| API::V1::DerivativeJsonDecorator.new(derivative)}
+          object.derivatives.collect{|derivative| API::V1::DerivativeJSONDecorator.new(derivative)}
         end
     end
   end
