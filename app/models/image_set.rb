@@ -22,6 +22,10 @@ class ImageSet
     @original ||= build_image(original_filepath)
   end
 
+  def updated_at
+    original.updated_at
+  end
+
   def original_filepath
     full_filepath(basename)
   end
@@ -65,12 +69,13 @@ class ImageSet
     end
 
     def build_derivatives
-      {}.with_indifferent_access.tap do |derivatives_hash|
-        derivative_filepaths.each do |filepath|
-          name = derivative_name(filepath)
-          derivatives_hash[name] = build_image(filepath)
-        end
-      end
+      derivative_filepaths.collect{|filepath| build_derivative(filepath)}
+    end
+
+    def build_derivative(filepath)
+      name = derivative_name(filepath)
+      image = build_image(filepath)
+      Derivative.new(name, image)
     end
 
     def basename_no_ext

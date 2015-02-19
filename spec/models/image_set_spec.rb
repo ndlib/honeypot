@@ -74,9 +74,10 @@ describe ImageSet do
     end
 
     describe '#derivatives' do
-      it "is a hash of style names and images" do
-        styles.each do |style|
-          expect(subject.derivatives[style]).to be_a_kind_of(Image)
+      it "is an array of derivatives" do
+        expect(subject.derivatives.count).to eq(styles.count)
+        subject.derivatives.each do |derivative|
+          expect(styles).to include(derivative.type.to_sym)
         end
       end
     end

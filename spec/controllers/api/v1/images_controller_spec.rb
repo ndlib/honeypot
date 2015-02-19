@@ -1,11 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe Api::ImagesController do
+RSpec.describe API::V1::ImagesController do
   let(:image_set) { instance_double(ImageSet) }
-
-  before do
-    allow_any_instance_of(ImageSetJsonFormatter).to receive(:to_hash).and_return({json: 'json'})
-  end
 
   describe "create" do
     let(:upload_file) { Rack::Test::UploadedFile.new(Rails.root.join('spec/fixtures/testimage.jpg'), 'image/jpeg') }
@@ -17,6 +13,8 @@ RSpec.describe Api::ImagesController do
       put :create, save_params
 
       expect(assigns(:image)).to be_a_kind_of(AddImage)
+      expect(assigns(:image_set)).to be_a_kind_of(API::V1::ImageSetJSONDecorator)
+      expect(response).to render_template("show")
     end
 
     it "returns an error with invalid json" do
@@ -27,16 +25,18 @@ RSpec.describe Api::ImagesController do
     end
 
     describe '#show' do
+      let(:real_path) { File.join(Rails.root, 'spec/fixtures/testimage.jpg') }
 
       it "renders json" do
-        expect_any_instance_of(ImageSet).to receive(:exists?).and_return(true)
-        get :show, image_path: "test/path/to/image.jpg"
+        expect_any_instance_of(ImageSet).to receive(:original_filepath).and_return(real_path)
+        get :show, image_path: "test/path/to/image.jpg", format: :json
         expect(response).to be_success
-        expect(response.body).to eq("{\"image\":{\"json\":\"json\"}}")
+        expect(assigns(:image_set)).to be_a_kind_of(API::V1::ImageSetJSONDecorator)
+        expect(response).to render_template("show")
       end
 
       it "returns an error when an image is not found" do
-        get :show, image_path: "test/path/to/image.jpg"
+        get :show, image_path: "test/path/to/image.jpg", format: :json
         expect(response).to be_missing
         expect(response.body).to eq("{\"error\":\"File not found: test/path/to/image.jpg\"}")
       end

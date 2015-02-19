@@ -18,6 +18,7 @@ module Honeypot
   class Application < Rails::Application
 
     config.autoload_paths += [
+      Rails.root.join('app', 'decorators'),
       Rails.root.join('app', 'services'),
     ]
     # Settings in config/environments/* take precedence over those specified here.
