@@ -140,6 +140,7 @@ GEM
       net-ssh (>= 2.6.5)
     net-ssh (2.9.1)
     netrc (0.10.0)
+    newrelic_rpm (3.11.2.286)
     nokogiri (1.6.5)
       mini_portile (~> 0.6.0)
     pry (0.10.1)
@@ -282,6 +283,7 @@ DEPENDENCIES
   guard-rspec
   jbuilder (~> 2.0)
   jquery-rails
+  newrelic_rpm
   rails (= 4.2.0.rc1)
   rb-readline
   rspec-collection_matchers
