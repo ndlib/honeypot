@@ -5,6 +5,7 @@ require 'airbrake/capistrano3'
 
 set :application, 'honeypot'
 set :repo_url, 'https://github.com/ndlib/honeypot.git'
+set :log_level, :info
 
 # Default branch is :master
 if fetch(:stage).to_s == 'production'
