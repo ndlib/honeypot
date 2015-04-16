@@ -28,6 +28,9 @@ gem 'ruby-vips'
 
 gem 'newrelic_rpm'
 
+# For Errbit
+gem 'airbrake'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
