@@ -70,6 +70,8 @@ namespace :deploy do
 
 end
 
+after 'deploy:finished', 'airbrake:deploy'
+
 namespace :und do
 
   desc "Run puppet using the modules supplied by the application"
@@ -87,4 +89,3 @@ namespace :und do
   end
 end
 
-after 'deploy:finished', 'airbrake:deploy'
