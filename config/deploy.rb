@@ -1,6 +1,8 @@
 # config valid only for Capistrano 3.1
 lock '3.3.5'
 
+require 'airbrake/capistrano3'
+
 set :application, 'honeypot'
 set :repo_url, 'https://github.com/ndlib/honeypot.git'
 
@@ -83,3 +85,5 @@ namespace :und do
     end
   end
 end
+
+after 'deploy:finished', 'airbrake:deploy'
