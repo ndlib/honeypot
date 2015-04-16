@@ -26,6 +26,8 @@ gem 'fastimage'
 gem "rb-readline"
 gem 'ruby-vips'
 
+gem 'newrelic_rpm'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
