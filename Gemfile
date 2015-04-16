@@ -26,6 +26,9 @@ gem 'fastimage'
 gem "rb-readline"
 gem 'ruby-vips'
 
+# For Errbit
+gem 'airbrake'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
