@@ -2,6 +2,7 @@
 lock '3.3.5'
 
 require 'airbrake/capistrano3'
+require 'new_relic/recipes'
 
 set :application, 'honeypot'
 set :repo_url, 'https://github.com/ndlib/honeypot.git'
@@ -71,6 +72,7 @@ namespace :deploy do
 end
 
 after 'deploy:finished', 'airbrake:deploy'
+after "deploy:updated",     "newrelic:notice_deployment"
 
 namespace :und do
 
