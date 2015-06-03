@@ -26,8 +26,6 @@ group :application do
   gem "rb-readline"
   gem 'ruby-vips'
 
-  gem 'newrelic_rpm'
-
   # Use ActiveModel has_secure_password
   # gem 'bcrypt', '~> 3.1.7'
 
@@ -63,6 +61,8 @@ end
 
 # For Errbit
 gem 'airbrake'
+
+gem 'newrelic_rpm'
 
 group :deployment do
   # Use Capistrano for deployment
