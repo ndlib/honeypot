@@ -64,7 +64,12 @@ group :application, :development, :test do
 
 end
 
+
+
 group :deployment do
+  # Use Capistrano for deployment
+  # gem 'capistrano-rails', group: :development
+  gem 'capistrano', '~> 3.1'
+  gem 'capistrano-rails', '~> 1.1'
 
 end
-
