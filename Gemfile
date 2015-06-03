@@ -1,43 +1,44 @@
 source 'https://rubygems.org'
 
+group :application do
+  # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+  gem 'rails', '4.2.0.rc1'
+  # Use SCSS for stylesheets
+  gem 'sass-rails', '~> 4.0'
+  # Use Uglifier as compressor for JavaScript assets
+  gem 'uglifier', '>= 1.3.0'
+  # Use CoffeeScript for .coffee assets and views
+  gem 'coffee-rails', '~> 4.1.0'
+  # See https://github.com/sstephenson/execjs#readme for more supported runtimes
+  gem 'therubyracer', platforms: :ruby
 
-# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.0.rc1'
-# Use SCSS for stylesheets
-gem 'sass-rails', '~> 4.0'
-# Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '>= 1.3.0'
-# Use CoffeeScript for .coffee assets and views
-gem 'coffee-rails', '~> 4.1.0'
-# See https://github.com/sstephenson/execjs#readme for more supported runtimes
-gem 'therubyracer', platforms: :ruby
+  # Use jquery as the JavaScript library
+  gem 'jquery-rails'
+  # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
+  gem 'turbolinks'
+  # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
+  gem 'jbuilder', '~> 2.0'
+  # bundle exec rake doc:rails generates the API under doc/api.
+  gem 'sdoc', '~> 0.4.0', group: :doc
 
-# Use jquery as the JavaScript library
-gem 'jquery-rails'
-# Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-gem 'turbolinks'
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.0'
-# bundle exec rake doc:rails generates the API under doc/api.
-gem 'sdoc', '~> 0.4.0', group: :doc
+  gem 'draper'
+  gem 'fastimage'
+  gem "rb-readline"
+  gem 'ruby-vips'
 
-gem 'draper'
-gem 'fastimage'
-gem "rb-readline"
-gem 'ruby-vips'
+  gem 'newrelic_rpm'
 
-gem 'newrelic_rpm'
+  # For Errbit
+  gem 'airbrake'
 
-# For Errbit
-gem 'airbrake'
+  # Use ActiveModel has_secure_password
+  # gem 'bcrypt', '~> 3.1.7'
 
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
+  # Use Unicorn as the app server
+  # gem 'unicorn'
+end
 
-# Use Unicorn as the app server
-# gem 'unicorn'
-
-group :development, :test do
+group :application, :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
 
@@ -61,10 +62,14 @@ group :development, :test do
 
   gem 'coveralls', require: false
 
+end
+
+
+
+group :deployment do
   # Use Capistrano for deployment
   # gem 'capistrano-rails', group: :development
   gem 'capistrano', '~> 3.1'
   gem 'capistrano-rails', '~> 1.1'
 
 end
-
