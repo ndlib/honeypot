@@ -28,9 +28,6 @@ group :application do
 
   gem 'newrelic_rpm'
 
-  # For Errbit
-  gem 'airbrake'
-
   # Use ActiveModel has_secure_password
   # gem 'bcrypt', '~> 3.1.7'
 
@@ -64,7 +61,8 @@ group :application, :development, :test do
 
 end
 
-
+# For Errbit
+gem 'airbrake'
 
 group :deployment do
   # Use Capistrano for deployment
