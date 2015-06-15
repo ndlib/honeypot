@@ -1,6 +1,8 @@
 source 'https://rubygems.org'
 
 group :application do
+  # Only load required mime types to save on RAM
+  gem "mime-types", "~> 2.6.1", require: "mime/types/columnar"
   # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
   gem 'rails', '4.2.0.rc1'
   # Use SCSS for stylesheets
