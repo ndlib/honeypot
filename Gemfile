@@ -50,7 +50,7 @@ group :application, :development, :test do
   gem 'rspec-rails', '~> 3.0'
   gem 'rspec-collection_matchers'
 
-  gem 'guard'
+  gem 'guard', '~> 2.6.1'
   gem 'guard-rspec', require: false
   gem 'guard-rails'
   gem 'guard-coffeescript'
