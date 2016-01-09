@@ -4,7 +4,7 @@ group :application do
   # Only load required mime types to save on RAM
   gem "mime-types", "~> 2.6.1", require: "mime/types/columnar"
   # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-  gem 'rails', '4.2.0.rc1'
+  gem "rails", "~> 4.2.0"
   # Use SCSS for stylesheets
   gem 'sass-rails', '~> 4.0'
   # Use Uglifier as compressor for JavaScript assets
@@ -35,7 +35,9 @@ group :application do
   # gem 'unicorn'
 end
 
-group :application, :development, :test do
+group :development, :test do
+  gem "hesburgh_infrastructure", git: "https://github.com/ndlib/hesburgh_infrastructure.git"
+
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
 
@@ -50,11 +52,12 @@ group :application, :development, :test do
   gem 'rspec-rails', '~> 3.0'
   gem 'rspec-collection_matchers'
 
-  gem 'guard'
-  gem 'guard-rspec', require: false
-  gem 'guard-rails'
-  gem 'guard-coffeescript'
-  gem 'guard-bundler'
+  gem "guard", "~> 2.6.1"
+  gem "guard-bundler"
+  gem "guard-coffeescript", "~> 1.4.0"
+  gem "guard-rails", "~> 0.6.0"
+  gem "guard-rspec"
+  gem "guard-spring", "~> 0.0.4"
   gem "growl"
 
   gem 'coveralls', require: false
