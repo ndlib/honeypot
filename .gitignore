@@ -17,3 +17,5 @@
 /public/images/*
 !/public/images/.keep
 /coverage
+
+config/docker/secrets.yml
