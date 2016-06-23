@@ -12,7 +12,6 @@ class CreatePyramidTiff < CreateImageDerivative
   private
 
     def create_derivative!
-      puts source_image.inspect
       source_image.tiffsave(target_filepath, PYRAMID_TIFF_OPTIONS)
     end
 
