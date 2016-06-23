@@ -11,12 +11,7 @@ class CreatePyramidTiff < CreateImageDerivative
 
   private
 
-    def create_derivative!
-      source_image.tiffsave(target_filepath, PYRAMID_TIFF_OPTIONS)
-    end
-
-    # def tiff_writer
-    #   @tiff_writer ||= Vips::Image.new(source_image)
-    # end
-
+  def create_derivative!
+    source_image.tiffsave(target_filepath, PYRAMID_TIFF_OPTIONS)
+  end
 end
