@@ -64,8 +64,9 @@ RSpec.describe CreateThumbnail do
       expect(File.exist?(target_filepath)).to be_falsy
       subject.send(:create_derivative!)
       expect(File.exist?(target_filepath)).to be_truthy
-      thumbnail = VIPS::Image.new(target_filepath)
-      expect(thumbnail.size).to eq([150, 200])
+      thumbnail = Vips::Image.new(target_filepath)
+      expect(thumbnail.width).to eq 150
+      expect(thumbnail.height).to eq 200
     end
   end
 end

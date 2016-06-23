@@ -23,7 +23,7 @@ describe CreateImageDerivative do
 
   describe '#source_image' do
     it "creates a VIPS::Image" do
-      expect(subject.send(:source_image)).to be_a_kind_of(VIPS::Image)
+      expect(subject.send(:source_image)).to be_a_kind_of(Vips::Image)
     end
   end
 

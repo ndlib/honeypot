@@ -9,9 +9,9 @@ describe CreatePyramidTiff do
 
   describe '#tiff_writer' do
     it "creates a VIPS::TIFFWriter with the source image" do
-      source_image = instance_double(VIPS::Image)
+      source_image = instance_double(Vips::Image)
       expect(subject).to receive(:source_image).and_return(source_image)
-      expect(VIPS::TIFFWriter).to receive(:new).with(source_image, described_class::PYRAMID_TIFF_OPTIONS).and_return('tiff_writer')
+      expect(Vips::Image).to receive(:new).with(source_image).and_return("tiff_writer") # , described_class::PYRAMID_TIFF_OPTIONS).and_return('tiff_writer')
       expect(subject.send(:tiff_writer)).to eq('tiff_writer')
     end
   end
@@ -31,9 +31,9 @@ describe CreatePyramidTiff do
       expect(File.exist?(target_filepath)).to be_falsy
       subject.send(:create_derivative!)
       expect(File.exist?(target_filepath)).to be_truthy
-      original = VIPS::Image.new(source_filepath)
-      pyramid = VIPS::Image.new(target_filepath)
-      expect(pyramid.size).to eq(original.size)
+      original = Vips::Image.new(source_filepath)
+      pyramid = Vips::Image.new(target_filepath)
+      expect(pyramid.width).to eq(original.width)
     end
   end
 
