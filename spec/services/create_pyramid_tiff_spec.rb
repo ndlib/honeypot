@@ -7,15 +7,6 @@ describe CreatePyramidTiff do
 
   subject { described_class.new(source_filepath, target_filepath) }
 
-  describe '#tiff_writer' do
-    it "creates a VIPS::TIFFWriter with the source image" do
-      source_image = instance_double(Vips::Image)
-      expect(subject).to receive(:source_image).and_return(source_image)
-      expect(Vips::Image).to receive(:new).with(source_image).and_return("tiff_writer") # , described_class::PYRAMID_TIFF_OPTIONS).and_return('tiff_writer')
-      expect(subject.send(:tiff_writer)).to eq('tiff_writer')
-    end
-  end
-
   describe '#create_derivative!' do
     let(:image) { instance_double(Image, original_filepath: fixture_image_path, pyramid_filepath: fixture_pyramid_path)}
 
