@@ -3,7 +3,7 @@ cache: bundler
 sudo: required
 dist: trusty
 rvm:
-  - 2.1.4
+  - 2.2
 script: "bundle exec rspec spec --tag '~ignore:travis'"
 before_install:
   - sudo apt-get -qq update
