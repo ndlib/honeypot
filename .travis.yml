@@ -1,7 +1,10 @@
+sudo: required
 language: ruby
 cache: bundler
+services: docker
 rvm:
   - 2.1.4
-script: "bundle exec rspec spec --tag '~ignore:travis'"
+script:
+  - docker run -t nd/honeypot:v1 /bin/bash -c "bundle exec rspec spec --tag '~ignore:travis'"
 before_install:
-  - sudo apt-get install libvips-dev
+  - docker build -t nd/honeypot:v1 .
