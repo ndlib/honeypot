@@ -1,8 +1,10 @@
 language: ruby
 cache: bundler
+sudo: required
+dist: trusty
 rvm:
   - 2.1.4
 script: "bundle exec rspec spec --tag '~ignore:travis'"
 before_install:
   - sudo apt-get -qq update
-  - sudo apt-get install libvips-dev=8.3.1-1
+  - sudo apt-get install libvips-dev
