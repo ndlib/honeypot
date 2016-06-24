@@ -1,9 +1,9 @@
 language: ruby
 cache: bundler
 sudo: required
-dist: trusty
+dist: xenial
 rvm:
-  - 2.2
+  - 2.1.7
 script: "bundle exec rspec spec --tag '~ignore:travis'"
 before_install:
   - sudo apt-get -qq update
