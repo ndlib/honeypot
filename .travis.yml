@@ -4,6 +4,5 @@ rvm:
   - 2.2.3
 before_install:
   - docker build -t nd/honeypot:v1 .
-  - docker run -t nd/honeypot:v1 /bin/bash -c "bundle exec rspec spec --tag '~ignore:travis'"
 script:
-  - bundle exec rspec spec --tag '~ignore:travis'
+  - docker run -t nd/honeypot:v1 /bin/bash -c "bundle exec rspec spec --tag '~ignore:travis'"
