@@ -4,7 +4,8 @@ cache: bundler
 services: docker
 rvm:
   - 2.1.4
-script:
-  - docker run -t nd/honeypot:v1 /bin/bash -c "bundle exec rspec spec --tag '~ignore:travis'"
 before_install:
   - docker build -t nd/honeypot:v1 .
+  - docker run -t nd/honeypot:v1 /bin/bash -c "bundle exec rspec spec --tag '~ignore:travis'"
+script:
+  - bundle exec rspec spec --tag '~ignore:travis'
