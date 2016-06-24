@@ -6,5 +6,4 @@ rvm:
   - 2.1.7
 script: "bundle exec rspec spec --tag '~ignore:travis'"
 before_install:
-  - sudo apt-get -qq update
-  - sudo apt-get install -y libvips-dev
+  - ./config/install-vips.sh
