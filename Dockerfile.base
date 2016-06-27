@@ -1,0 +1,19 @@
+# Rebuild this only when system changes, ex: gems, os packages, etc
+#   docker build --no-cache -t ndlib/honeypot:base . -f Dockerfile.base
+
+FROM ruby:2.2
+MAINTAINER Justin Gondron <jgondron@nd.edu>
+
+RUN apt-get update && apt-get install -y libgsf-1-dev libvips libvips-dev libvips-tools --no-install-recommends && rm -rf /var/lib/apt/lists/*
+# need libtiff5, libjpeg-turbo8?
+
+# throw errors if Gemfile has been modified since Gemfile.lock
+RUN bundle config --global frozen 1
+
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
+
+# install gems
+COPY Gemfile /usr/src/app/
+COPY Gemfile.lock /usr/src/app/
+RUN bundle install
