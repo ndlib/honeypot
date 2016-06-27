@@ -1,5 +1,8 @@
 sudo: required
 services: docker
-before_install:
+rvm:
+  - 2.2.1
+install:
   - docker build -t nd/honeypot:v1 .
+script:
   - docker run -t nd/honeypot:v1 /bin/bash -c "bundle exec rspec spec --tag '~ignore:travis'"
