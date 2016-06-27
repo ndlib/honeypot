@@ -30,4 +30,3 @@ coverage
 node_modules
 
 .rubocop.yml
-config/secrets.yml
