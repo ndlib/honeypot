@@ -5,6 +5,6 @@ rvm:
 before_install:
   - docker pull ndlib/honeypot
 install:
-  - docker build -t nd/honeypot:v1 .
+  - docker build -t ndlib/honeypot .
 script:
-  - docker run -t nd/honeypot:v1 /bin/bash -c "bundle exec rspec spec --tag '~ignore:travis'"
+  - docker run -t ndlib/honeypot /bin/bash -c "bundle exec rspec spec --tag '~ignore:travis'"
