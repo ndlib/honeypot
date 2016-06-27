@@ -1,5 +1,5 @@
 # Rebuild this only when system changes, ex: gems, os packages, etc
-#   docker build --no-cache -t ndlib/honeypot:base . -f Dockerfile.base
+#   docker build --no-cache -f Dockerfile.base -t ndlib/honeypot:base-v1 .
 
 FROM ruby:2.2
 MAINTAINER Justin Gondron <jgondron@nd.edu>

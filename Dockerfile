@@ -1,4 +1,4 @@
-FROM ndlib/honeypot:base
+FROM ndlib/honeypot:base-v1
 MAINTAINER Justin Gondron <jgondron@nd.edu>
 
 COPY . /usr/src/app
