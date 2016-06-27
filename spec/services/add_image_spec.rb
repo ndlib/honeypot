@@ -5,10 +5,6 @@ RSpec.describe AddImage do
   let(:params) { { application_id: 'application', group_id: 1, item_id: 2, image: upload_file } }
   subject { described_class.new(params) }
 
-  it 'should fail here' do
-    expect(false).to eq(true)
-  end
-
   describe 'validations' do
     it 'has valid params' do
       expect(subject).to be_valid
