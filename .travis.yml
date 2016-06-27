@@ -5,7 +5,7 @@ install:
 script:
   - docker run -t ndlib/honeypot /bin/bash -c "bundle exec rspec spec --tag '~ignore:travis'"
 after_success:
-  - if [ "$TRAVIS_BRANCH" == "master" ]; then
+  - if [ "$TRAVIS_BRANCH" == "Containerize-DEC" ]; then
     docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
     docker push ndlib/honeypot;
     fi
