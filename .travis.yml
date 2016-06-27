@@ -1,7 +1,5 @@
 sudo: required
 services: docker
-rvm:
-  - 2.2.1
 install:
   - docker build -t ndlib/honeypot .
 script:
