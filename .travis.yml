@@ -1,7 +1,5 @@
 sudo: required
 services: docker
-rvm:
-  - 2.2.1
 before_install:
   - docker build -t nd/honeypot:v1 .
 script:
