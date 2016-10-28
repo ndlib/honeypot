@@ -34,7 +34,7 @@ class AddImage
 
   private
     def filename
-      image.original_filename
+      SecureRandom.urlsafe_base64 + File.extname(image.original_filename)
     end
 
     def basepath

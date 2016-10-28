@@ -47,7 +47,7 @@ RSpec.describe AddImage do
 
   describe '#filepath' do
     it "expands the group and item id into multiple directories" do
-      expect(subject.filepath).to eq("application/000/001/000/002/testimage.jpg")
+      expect(subject.filepath).to include("application/000/001/000/002/", ".jpg")
     end
   end
 
