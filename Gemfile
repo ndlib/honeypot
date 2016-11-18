@@ -4,7 +4,7 @@ group :application do
   # Only load required mime types to save on RAM
   gem "mime-types", "~> 2.6.1", require: "mime/types/columnar"
   # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-  gem 'rails', '4.2.0.rc1'
+  gem 'rails', '~> 4.2.0'
   # Use SCSS for stylesheets
   gem 'sass-rails', '~> 4.0'
   # Use Uglifier as compressor for JavaScript assets
