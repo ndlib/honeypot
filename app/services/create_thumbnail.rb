@@ -72,6 +72,7 @@ class CreateThumbnail < CreateImageDerivative
     end
 
     def thumbnail_command
+      puts vips_command_array.join(' ')
       vips_command_array.join(' ')
     end
 

@@ -16,6 +16,7 @@ class ConvertImage
   end
 
   def convert!
+    create_working_image!
     create_pyramid_tiff!
     create_thumbnails!
   end
@@ -25,8 +26,16 @@ class ConvertImage
       image_set.original_filepath
     end
 
+    def source_working_image
+      image_set.working_filepath
+    end
+
+    def create_working_image!
+      CreateThumbnail.call(source_filepath, source_working_image, working_copy_options)
+    end
+
     def create_pyramid_tiff!
-      CreatePyramidTiff.call(source_filepath, image_set.pyramid_filepath)
+      CreatePyramidTiff.call(source_working_image, image_set.pyramid_filepath)
     end
 
     def create_thumbnails!
@@ -36,7 +45,29 @@ class ConvertImage
     end
 
     def create_thumbnail!(style, options)
-      CreateThumbnail.call(source_filepath, image_set.thumbnail_filepath(style), options)
+      CreateThumbnail.call(source_working_image, image_set.thumbnail_filepath(style), options)
+    end
+
+    def source_image
+      @source_image ||= VIPS::Image.new(source_filepath)
+    end
+
+    def source_width
+      source_image.x_size
+    end
+
+    def source_height
+      source_image.y_size
+    end
+
+    def working_copy_options
+      out = {}
+      if source_height > source_width
+        out[:height] = source_height > 3999 ? 4000 : source_height
+      else
+        out[:width] = source_width > 3999 ? 4000 : source_width
+      end
+      out
     end
 
 end
