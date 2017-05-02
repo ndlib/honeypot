@@ -19,17 +19,23 @@ RSpec.describe CreateThumbnail do
       expect(subject.send(:size)).to eq [150, 200]
     end
 
-    it "returns a square bounding box" do
-      options[:size] = 200
-      expect(subject.send(:size)).to eq [200, 200]
+    it "returns the source width if the set width is greater than the actual width" do
+      options[:width] = 2000
+      expect(subject.send(:size)).to eq [1200, 1600]
     end
+
+    it "returns the source height if the set height is greater than the actual heith" do
+      options[:height] = 2000
+      expect(subject.send(:size)).to eq [1200, 1600]
+    end
+
   end
 
   describe '#vips_command_array' do
     it 'returns an array of the command and arguments' do
       expect(subject.send(:vips_command_array)).to eq([
         Rails.configuration.settings.vips_thumbnail_command,
-        "-s 128x128",
+        "-s 1200x1600",
         "-o #{target_filepath}[Q=60]",
         source_filepath,
       ])

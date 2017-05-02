@@ -42,6 +42,10 @@ class ImageSet
     full_filepath(File.join(style.to_s, derivative_basename))
   end
 
+  def working_filepath(derivative_basename = basename)
+    derivative_filepath(:working, derivative_basename)
+  end
+
   def derivatives
     @derivatives ||= build_derivatives
   end

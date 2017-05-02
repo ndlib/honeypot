@@ -19,15 +19,14 @@ class CreateThumbnail < CreateImageDerivative
     end
 
     def calculate_size
-      if options[:height]
+      if options[:height] && options[:height] < source_height
         width = (options[:height] * aspect_ratio).round
         [width, options[:height]]
-      elsif options[:width]
+      elsif options[:width] && options[:width] < source_width
         height = (options[:width] / aspect_ratio).round
         [options[:width], height]
       else
-        options[:size] ||= 128
-        [options[:size], options[:size]]
+        [source_width, source_height]
       end
     end
 
@@ -73,6 +72,7 @@ class CreateThumbnail < CreateImageDerivative
     end
 
     def thumbnail_command
+      puts vips_command_array.join(' ')
       vips_command_array.join(' ')
     end
 
