@@ -24,7 +24,7 @@ RSpec.describe CreateThumbnail do
       expect(subject.send(:size)).to eq [1200, 1600]
     end
 
-    it "returns the source height if the set height is greater than the actual heith" do
+    it "returns the source height if the set height is greater than the actual heigth" do
       options[:height] = 2000
       expect(subject.send(:size)).to eq [1200, 1600]
     end
