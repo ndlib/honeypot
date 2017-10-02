@@ -10,7 +10,7 @@
 
 set :rack_env, :production
 
-set :remote_image_mount, "/mnt/corpfs_web/honeypot/prod"
+set :remote_image_mount, "/home/app/honeypot/shared/public/images"
 
 # Extended Server Syntax
 # ======================

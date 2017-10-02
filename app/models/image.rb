@@ -16,6 +16,7 @@ class Image
   end
 
   def initialize(filepath)
+    puts filepath.inspect
     @filepath = filepath
   end
 
