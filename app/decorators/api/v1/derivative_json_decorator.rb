@@ -14,7 +14,7 @@ module API
       def src
         src_url = image.src
         if pyramid?
-          src_url = "#{src_url}.dzi"
+          src_url = "#{src_url}"
         end
         src_url
       end

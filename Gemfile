@@ -4,7 +4,7 @@ group :application do
   # Only load required mime types to save on RAM
   gem "mime-types", "~> 2.6.1", require: "mime/types/columnar"
   # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-  gem 'rails', '4.2.0.rc1'
+  gem 'rails', '~> 4.2.0'
   # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
   gem 'jbuilder', '~> 2.0'
   # bundle exec rake doc:rails generates the API under doc/api.
