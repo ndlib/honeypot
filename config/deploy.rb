@@ -50,7 +50,7 @@ set :default_env, { path: "/opt/ruby/current/bin:$PATH" }
 # set :keep_releases, 5
 
 # Run the puppet scripts before bundle to make sure all dependencies are installed
-before "bundler:install", "und:puppet"
+#before "bundler:install", "und:puppet"
 
 namespace :deploy do
 
