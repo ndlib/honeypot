@@ -44,7 +44,8 @@ set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets public/system public/ima
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
-set :default_env, { path: "/opt/ruby/current/bin:$PATH" }
+#set :default_env, { path: "/opt/ruby/current/bin:$PATH" }
+set :default_env, { path: "/opt/rh/rh-ruby24":~/bin:$PATH" }
 
 # Default value for keep_releases is 5
 # set :keep_releases, 5
