@@ -24,24 +24,7 @@ Rails.application.configure do
   config.serve_static_files = false
 
   # Compress JavaScripts and CSS.
-#  config.assets.css_compressor = :sass
-
-  # Do not fallback to assets pipeline if a precompiled asset is missed.
-  # Compress JavaScripts and CSS
-  class NoCompression
-       def compress(string)
-           # do nothing
-           string
-       end
-   end
-
-   config.assets.compress = true
-   config.assets.js_compressor = NoCompression.new
-   config.assets.css_compressor = NoCompression.new
-   
-  # Asset digests allow you to set far-future HTTP expiration dates on all assets,
-  # yet still be able to expire them through the digest params.
-  config.assets.digest = true
+  #config.assets.css_compressor = :uglifier
 
   # `config.assets.precompile` and `config.assets.version` have moved to config/initializers/assets.rb
 

@@ -3,6 +3,16 @@
 # Version of your assets, change this if you want to expire all your assets.
 Rails.application.config.assets.version = '1.0'
 
+class NoCompression
+  def compress(string)
+    # do nothing
+    string
+  end
+end
+
+Rails.application.config.assets.compile = false
+Rails.application.config.assets.css_compressor = NoCompression.new
+
 # Add additional assets to the asset load path
 # Rails.application.config.assets.paths << Emoji.images_path
 

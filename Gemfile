@@ -47,8 +47,6 @@ group :application, :development, :test do
   gem 'coveralls', require: false
 
   gem 'rake', '< 11.0'
-
-  gem 'saas'
 end
 
 # For Errbit
