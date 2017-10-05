@@ -48,6 +48,7 @@ group :application, :development, :test do
 
   gem 'rake', '< 11.0'
 
+  gem 'saas'
 end
 
 # For Errbit
