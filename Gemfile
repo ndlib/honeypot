@@ -46,6 +46,8 @@ group :application, :development, :test do
 
   gem 'coveralls', require: false
 
+  gem 'rake', '< 11.0'
+
 end
 
 # For Errbit
@@ -56,7 +58,7 @@ gem 'newrelic_rpm'
 group :deployment do
   # Use Capistrano for deployment
   # gem 'capistrano-rails', group: :development
-  gem 'capistrano', '~> 3.1'
-  gem 'capistrano-rails', '~> 1.1'
+  gem 'capistrano', '~> 3.4.1'
+  gem 'capistrano-rails', '~> 1.3'
 
 end

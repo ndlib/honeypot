@@ -1,5 +1,5 @@
 # config valid only for Capistrano 3.1
-lock '3.3.5'
+lock '3.4.1'
 
 require 'airbrake/capistrano3'
 require 'new_relic/recipes'
@@ -44,13 +44,24 @@ set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets public/system public/ima
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
-set :default_env, { path: "/opt/ruby/current/bin:$PATH" }
+set :default_env, { ld_library_path: "/opt/rh/rh-ruby24/root/usr/local/lib64:/opt/rh/rh-ruby24/root/usr/lib64:/opt/rh/rh-ruby24/root/usr/local/lib64:/opt/rh/rh-ruby24/root/usr/lib64:/usr/local/lib64:/usr/local/lib" }
 
 # Default value for keep_releases is 5
 # set :keep_releases, 5
+before "deploy:symlink:linked_dirs", "test:path"
 
-# Run the puppet scripts before bundle to make sure all dependencies are installed
-before "bundler:install", "und:puppet"
+namespace :test do
+  desc 'test'
+  task :path do
+    on roles(:web), in: :groups, limit: 3, wait: 10 do
+
+      output = capture("vips --version")
+      output.each_line do |line|
+        puts line
+      end
+    end
+  end
+end
 
 namespace :deploy do
 
@@ -77,21 +88,3 @@ end
 
 after 'deploy:finished', 'airbrake:deploy'
 after "deploy:updated",     "newrelic:notice_deployment"
-
-namespace :und do
-
-  desc "Run puppet using the modules supplied by the application"
-  task :puppet do
-    local_module_path = File.join(release_path, 'puppet', 'modules')
-    options = {
-      remote_image_mount: fetch(:remote_image_mount),
-      deploy_to: fetch(:deploy_to),
-    }
-    option_string = options.map { |k,v| "#{k} => '#{v}'" }.join(', ')
-    puppet_apply = %Q{sudo puppet apply --modulepath=#{local_module_path}:/global/puppet_standalone/modules:/etc/puppet/modules -e "class { 'lib_honeypot': #{option_string} }"}
-    on roles(:web) do
-      execute puppet_apply
-    end
-  end
-end
-
