@@ -1,7 +1,6 @@
 # config valid only for Capistrano 3.1
 lock '3.3.5'
 
-require 'airbrake/capistrano3'
 require 'new_relic/recipes'
 
 set :application, 'honeypot'
@@ -76,7 +75,6 @@ namespace :deploy do
 
 end
 
-after 'deploy:finished', 'airbrake:deploy'
 after "deploy:updated",     "newrelic:notice_deployment"
 
 namespace :und do
