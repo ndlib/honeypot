@@ -49,7 +49,7 @@ class ConvertImage
     end
 
     def source_image
-      @source_image ||= VIPS::Image.new(source_filepath)
+      @source_image ||= Vips::Image.new_from_file(source_filepath)
     end
 
     def source_width
