@@ -53,11 +53,11 @@ class ConvertImage
     end
 
     def source_width
-      source_image.x_size
+      source_image.width
     end
 
     def source_height
-      source_image.y_size
+      source_image.height
     end
 
     def working_copy_options
