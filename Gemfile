@@ -48,8 +48,8 @@ group :application, :development, :test do
 
 end
 
-# For Errbit
-gem 'airbrake'
+# For Sentry
+gem 'sentry-raven'
 
 gem 'newrelic_rpm'
 

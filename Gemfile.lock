@@ -37,9 +37,6 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
     addressable (2.3.6)
-    airbrake (4.1.0)
-      builder
-      multi_json
     arel (6.0.0)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
@@ -86,6 +83,8 @@ GEM
       request_store (~> 1.0)
     erubis (2.7.0)
     execjs (2.2.2)
+    faraday (0.17.3)
+      multipart-post (>= 1.2, < 3)
     fastimage (1.6.4)
       addressable (~> 2.3, >= 2.3.5)
     ffi (1.9.6)
@@ -131,6 +130,7 @@ GEM
     mini_portile (0.6.1)
     minitest (5.4.3)
     multi_json (1.10.1)
+    multipart-post (2.1.1)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (2.9.1)
@@ -207,6 +207,8 @@ GEM
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
+    sentry-raven (2.13.0)
+      faraday (>= 0.7.6, < 1.0)
     simplecov (0.9.1)
       docile (~> 1.1.0)
       multi_json (~> 1.0)
@@ -249,7 +251,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  airbrake
   byebug
   capistrano (~> 3.1)
   capistrano-rails (~> 1.1)
@@ -271,6 +272,7 @@ DEPENDENCIES
   rspec-rails (~> 3.0)
   ruby-vips
   sdoc (~> 0.4.0)
+  sentry-raven
   spring
   spring-commands-rspec
   web-console (~> 2.0)
