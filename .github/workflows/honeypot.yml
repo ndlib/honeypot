@@ -2,10 +2,11 @@
 # They are provided by a third-party and are governed by
 # separate terms of service, privacy policy, and support
 # documentation.
+# 
 # This workflow will download a prebuilt Ruby version, install dependencies and run tests with Rake
 # For more information see: https://github.com/marketplace/actions/setup-ruby-jruby-and-truffleruby
 
-name: Ruby
+name: Honeypot
 
 on:
   push:
@@ -27,6 +28,13 @@ jobs:
       uses: ruby/setup-ruby@ec106b438a1ff6ff109590de34ddc62c540232e0
       with:
         ruby-version: 2.4
+    - name: Set up VIPS
+      runs:
+        using: "composite"
+        steps:
+          - run: sudo apt-get install libvips
+            name: Install VIPS dependency
+            shell: bash
     - name: Install dependencies
       run: bundle install
     - name: Run tests
