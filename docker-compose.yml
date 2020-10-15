@@ -1,0 +1,13 @@
+version: '3.4'
+
+services:
+  honeypot:
+    image: honeypot
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3019 -b '0.0.0.0'"
+    volumes:
+      - .:/honeypot
+    ports:
+      - 3019:3019
