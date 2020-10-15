@@ -3,7 +3,7 @@
 name: Honeypot CI
 
 # Controls when the action will run. Triggers the workflow on push or pull request
-# events but only for the master branch
+# for any branch (current state of this file will be used for build)
 on: [push, pull_request]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
