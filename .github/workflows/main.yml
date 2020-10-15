@@ -4,11 +4,7 @@ name: Honeypot CI
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
-on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+on: [push, pull_request]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -32,12 +28,12 @@ jobs:
 
       # VIPS
       - name: Set up VIPS
-        run: sudo apt-get install libvips
+        run: sudo apt-get install libvips-dev
 
       # Install gems
       - name: Install dependencies
         run: bundle install
     
-      # Run unit tests
+      # Run unit tests excluding tagged as indicated
       - name: Run tests
-        run: bundle exec rake spec
+        run: bundle exec rspec spec --tag '~ignore:github'

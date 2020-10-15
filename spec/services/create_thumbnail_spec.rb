@@ -55,23 +55,23 @@ RSpec.describe CreateThumbnail do
     end
   end
 
-  # describe '#create_derivative!', ignore: :travis do
-  #   let(:options) { {height: 200} }
+  describe '#create_derivative!', ignore: :github do
+    let(:options) { {height: 200} }
 
-  #   before do
-  #     File.delete(target_filepath) if File.exist?(target_filepath)
-  #   end
+    before do
+      File.delete(target_filepath) if File.exist?(target_filepath)
+    end
 
-  #   after do
-  #     File.delete(target_filepath) if File.exist?(target_filepath)
-  #   end
+    after do
+      File.delete(target_filepath) if File.exist?(target_filepath)
+    end
 
-  #   it 'creates a thumbnail' do
-  #     expect(File.exist?(target_filepath)).to be_falsy
-  #     subject.send(:create_derivative!)
-  #     expect(File.exist?(target_filepath)).to be_truthy
-  #     thumbnail = Vips::Image.new_from_file(target_filepath)
-  #     expect(thumbnail.size).to eq([150, 200])
-  #   end
-  # end
+    it 'creates a thumbnail' do
+      expect(File.exist?(target_filepath)).to be_falsy
+      subject.send(:create_derivative!)
+      expect(File.exist?(target_filepath)).to be_truthy
+      thumbnail = Vips::Image.new_from_file(target_filepath)
+      expect(thumbnail.size).to eq([150, 200])
+    end
+  end
 end
