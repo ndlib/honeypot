@@ -1,7 +1,0 @@
-language: ruby
-cache: bundler
-rvm:
-  - 2.1.4
-script: "bundle exec rspec spec --tag '~ignore:travis'"
-before_install:
-  - sudo apt-get install libvips-dev
