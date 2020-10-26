@@ -6,7 +6,7 @@ services:
     build:
       context: .
       dockerfile: docker/Dockerfile
-    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3019 -b '0.0.0.0'"
+    command: bash -c "/usr/bin/docker-entrypoint.sh"
     volumes:
       - .:/honeypot
     ports:

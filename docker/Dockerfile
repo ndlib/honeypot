@@ -20,5 +20,5 @@ COPY . $APP_DIR
 COPY docker/docker-entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/docker-entrypoint.sh
 EXPOSE 3019
-ENTRYPOINT ["docker-entrypoint.sh"]
+ENTRYPOINT ["/usr/bin/docker-entrypoint.sh"]
 CMD ["rails", "server", "-b", "0.0.0.0","-p", "3019"]

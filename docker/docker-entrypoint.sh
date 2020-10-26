@@ -1,5 +1,9 @@
 #!/bin/bash
 set -e
 
-# Then exec the container's main process (what's set as CMD in the Dockerfile).
-exec "$@"
+echo "Start Rails Service"
+cd $APP_DIR
+pwd
+ls -la
+exec rails s -p 3019 -b '0.0.0.0'
+# exec "$@"
