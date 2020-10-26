@@ -2,8 +2,4 @@
 set -e
 
 echo "Start Rails Service"
-cd $APP_DIR
-pwd
-ls -la
-exec rails s -p 3019 -b '0.0.0.0'
-# exec "$@"
+exec bundle exec rails s -e $RAILS_RUN_ENV -b 0.0.0.0 -p 3019

@@ -5,6 +5,7 @@ RUN apt-get update && apt-get install -y nodejs libgsf-1-dev libvips libvips-dev
 # Configuration
 ENV APP_DIR /honeypot
 ENV TZ America/Indiana/Indianapolis
+ENV RAILS_RUN_ENV production
 
 # set timezone
 RUN ln -s /usr/share/zoneinfo/$TZ localtime
@@ -21,4 +22,4 @@ COPY docker/docker-entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/docker-entrypoint.sh
 EXPOSE 3019
 ENTRYPOINT ["/usr/bin/docker-entrypoint.sh"]
-CMD ["rails", "server", "-b", "0.0.0.0","-p", "3019"]
+CMD ["rails", "server", "-e", "$RAILS_RUN_ENV","-b", "0.0.0.0","-p", "3019"]
