@@ -5,7 +5,9 @@ RUN apt-get update && apt-get install -y nodejs libgsf-1-dev libvips libvips-dev
 # Configuration
 ENV APP_DIR /honeypot
 ENV TZ America/Indiana/Indianapolis
-ENV RAILS_RUN_ENV production
+ENV RAILS_RUN_ENV development
+ENV SECRET_KEY_BASE 033d9b408924e30217d91ee85af577135dc87ae34b050dd23606e5311f287aa8fc8615f8ca26cd5578f30de03fdb361085362eec873f13021f4956036e5922fc
+
 
 # set timezone
 RUN ln -s /usr/share/zoneinfo/$TZ localtime
