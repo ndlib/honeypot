@@ -24,4 +24,4 @@ COPY docker/docker-entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/docker-entrypoint.sh
 EXPOSE 3019
 ENTRYPOINT ["/usr/bin/docker-entrypoint.sh"]
-CMD ["rails", "server", "-e", "$RAILS_RUN_ENV","-b", "0.0.0.0","-p", "3019"]
+CMD ["rails", "server", "-e", "$RAILS_RUN_ENV","-p", "3019"]
