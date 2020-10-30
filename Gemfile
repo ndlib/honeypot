@@ -1,5 +1,8 @@
 source 'https://rubygems.org'
 
+# For Health checks
+gem 'health_bit'
+
 group :application do
   # Only load required mime types to save on RAM
   gem "mime-types", "~> 2.6.1", require: "mime/types/columnar"

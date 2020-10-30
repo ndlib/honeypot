@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount HealthBit.rack => '/health'
   default_url_options({
     host: Rails.configuration.settings.host,
     port: Rails.configuration.settings.port,
