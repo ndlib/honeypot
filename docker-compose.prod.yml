@@ -10,6 +10,27 @@ services:
       RAILS_LOG_LEVEL: DEBUG
       # Do not use this value in actual production env
       SECRET_KEY_BASE: e08359113980fceb3b62152286866deac83789900db39acd16712910259d904089a53ebebf614db39844ddd467f004ae426424095083b447d9173c0ee6041de2
+  iip:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.iip
+    environment:
+      VERBOSITY: 5
+      LOGFILE: /dev/stdout
+      MAX_IMAGE_CACHE_SIZE: 10
+      JPEG_QUALITY: 50
+      MAX_CVT: 3000
+      MEMCACHED_SERVERS: localhost
+      FILESYSTEM_PREFIX: /mnt/efs # Relies on the request uri having /images and that there's a subdir /mnt/efs/images
+      CORS: "*"
+    volumes_from:
+      # Get static assets from the rails container
+      - honeypot:ro
+    volumes:
+      # Locally, the honeypot container will mount the local dir, so the uploaded images will go into ./public/images
+      # Map this local directory to the mount location in the container. This is to mimic how a persistent file
+      # system will be used when deployed to use EFS
+      - ./public/images:/mnt/efs/images
   nginx:
     build:
       context: .
@@ -19,6 +40,8 @@ services:
       RAILS_HOST: honeypot
       RAILS_PORT: 3019
       RAILS_STATIC_DIR: /honeypot/public
+      IIP_HOST: iip
+      IIP_PORT: 9000
     ports:
       - "80:80"
     volumes_from:
