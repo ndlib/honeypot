@@ -1,0 +1,31 @@
+version: '3.4'
+
+services:
+  honeypot:
+    environment:
+      SSL: "false"
+      RAILS_ENV: production
+      RAILS_LOG_TO_STDOUT: "true"
+      RAILS_LOG_AUTOFLUSH: "true"
+      RAILS_LOG_LEVEL: DEBUG
+      # Do not use this value in actual production env
+      SECRET_KEY_BASE: e08359113980fceb3b62152286866deac83789900db39acd16712910259d904089a53ebebf614db39844ddd467f004ae426424095083b447d9173c0ee6041de2
+  nginx:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.nginx
+    command: bash project_root/nginx_entry.sh
+    environment: 
+      RAILS_HOST: honeypot
+      RAILS_PORT: 3019
+      RAILS_STATIC_DIR: /honeypot/public
+    ports:
+      - "80:80"
+    volumes_from:
+      # Get static assets from the rails container
+      - honeypot:ro
+    volumes:
+      # Locally, the honeypot container will mount the local dir, so the uploaded images will go into ./public/images
+      # Map this local directory to the mount location in the container. This is to mimic how a persistent file
+      # system will be used when deployed to use EFS
+      - ./public/images:/mnt/efs/images

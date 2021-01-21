@@ -27,5 +27,5 @@ pre_production:
   host: honeypotpprd.library.nd.edu
 
 production:
-  <<: *vm
-  host: honeypot.library.nd.edu
+  <<: *local
+  #host: honeypot.library.nd.edu
