@@ -33,6 +33,16 @@ end
 connection.post('/api/v1/images', { application_id: 'honeycomb', group_id: 1, item_id: 2, image: Faraday::UploadIO.new(path_to_image, icontent_type) })
 ```
 
+Curl Example:
+```sh
+curl \
+  -F "application_id=honeycomb" \
+  -F "group_id=1" \
+  -F "item_id=2" \
+  -F "image=@/path/to/image" \
+  http://localhost:3019/api/v1/images
+```
+
 #### Data received back
 
 JSON

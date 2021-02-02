@@ -8,6 +8,6 @@ services:
       dockerfile: docker/Dockerfile
     command: bash -c "/usr/bin/docker-entrypoint.sh"
     volumes:
-      - .:/honeypot
+      - ./public/images:/honeypot/public/images
     ports:
       - 3019:3019

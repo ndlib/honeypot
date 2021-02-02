@@ -5,7 +5,7 @@ RUN apt-get update && apt-get install -y nodejs libgsf-1-dev libvips libvips-dev
 # Configuration
 ENV APP_DIR /honeypot
 ENV TZ America/Indiana/Indianapolis
-ENV RAILS_RUN_ENV development
+ENV RAILS_ENV development
 ENV SECRET_KEY_BASE 033d9b408924e30217d91ee85af577135dc87ae34b050dd23606e5311f287aa8fc8615f8ca26cd5578f30de03fdb361085362eec873f13021f4956036e5922fc
 
 # set timezone
@@ -18,6 +18,8 @@ COPY ./Gemfile $APP_DIR
 COPY ./Gemfile.lock $APP_DIR
 RUN bundle install
 COPY . $APP_DIR
+
+VOLUME $APP_DIR/public
 
 # Add a script to be executed every time the container starts.
 COPY docker/docker-entrypoint.sh /usr/bin/
