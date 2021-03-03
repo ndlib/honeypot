@@ -28,10 +28,10 @@
 			"method": "GET",
 			"header": [],
 			"url": {
-				"raw": "https://{{host}}",
+				"raw": "https://{{app-host}}",
 				"protocol": "https",
 				"host": [
-					"{{host}}"
+					"{{app-host}}"
 				],
 				"path": [
 					"health"
