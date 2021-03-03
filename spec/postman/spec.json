@@ -6,7 +6,7 @@
 	},
 	"item": [
 		{
-			"name": "Base URL Smoke Test",
+			"name": "URL Health Smoke Test",
 			"event": [
 				{
 					"listen": "test",
@@ -35,56 +35,14 @@
 					"protocol": "https",
 					"host": [
 						"{{host}}"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Website Health Check Smoke Test",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "d96167a1-4b7d-4343-b896-d1752e5c8cd1",
-						"exec": [
-							"pm.test(\"Response time is less than 1000ms\", function () {",
-							"    pm.expect(pm.response.responseTime).to.be.below(1000);",
-							"});",
-							"",
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});",
-							"",
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "https://{{host}}/sm/?set_init=1",
-					"protocol": "https",
-					"host": [
-						"{{host}}"
 					],
 					"path": [
-						"healthcheck"
+						"health"
 					],
-					"query": [
-						{
-							"key": "set_init",
-							"value": "1"
-						}
-					]
-				},
-				"description": "### Session Manger\n\nCall will return listed items."
+				}
 			},
 			"response": []
-		},
+		}
 	],
 	"event": [
 		{
