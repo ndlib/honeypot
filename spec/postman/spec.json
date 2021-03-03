@@ -4,48 +4,43 @@
 		"name": "Website",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
-	"item": [
-		{
-			"name": "URL Health Smoke Test",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "d96167a1-4b7d-4343-b896-d1752e5c8cd1",
-						"exec": [
-							"pm.test(\"Response time is less than 1000ms\", function () {",
-							"    pm.expect(pm.response.responseTime).to.be.below(1000);",
-							"});",
-							"",
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});",
-							"",
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "https://{{host}}",
-					"protocol": "https",
-					"host": [
-						"{{host}}"
-					],
-					"path": [
-						"health"
-					],
-				}
-			},
-			"response": []
-		}
-	],
-	"event": [
-		{
+	"item": [{
+		"name": "URL Health Smoke Test",
+		"event": [{
+			"listen": "test",
+			"script": {
+				"id": "d96167a1-4b7d-4343-b896-d1752e5c8cd1",
+				"exec": [
+					"pm.test(\"Response time is less than 1000ms\", function () {",
+					"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+					"});",
+					"",
+					"pm.test(\"Status code is 200\", function () {",
+					"    pm.response.to.have.status(200);",
+					"});",
+					"",
+					""
+				],
+				"type": "text/javascript"
+			}
+		}],
+		"request": {
+			"method": "GET",
+			"header": [],
+			"url": {
+				"raw": "https://{{host}}",
+				"protocol": "https",
+				"host": [
+					"{{host}}"
+				],
+				"path": [
+					"health"
+				]
+			}
+		},
+		"response": []
+	}],
+	"event": [{
 			"listen": "prerequest",
 			"script": {
 				"id": "8e5eb9f5-247e-4eb3-8d77-5d3ae0fa7366",
