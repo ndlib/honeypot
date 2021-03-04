@@ -39,7 +39,7 @@
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "https://{{app-host}}/api/v1/images?application_id=honeycomb&group_id=1&item_id=2&image=./spec/postman/test.png",
+					"raw": "https://{{app-host}}/api/v1/images?application_id=honeycomb&group_id=1&item_id=2&image=spec/postman/test.png",
 					"protocol": "https",
 					"host": [
 						"{{app-host}}"
