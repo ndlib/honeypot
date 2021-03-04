@@ -1,49 +1,81 @@
 {
 	"info": {
-		"_postman_id": "af17780b-042b-4106-9b71-cb60d04a9633",
+		"_postman_id": "b6f2ac20-69c3-4dc4-bc9b-36c03700a340",
 		"name": "Website",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
-	"item": [{
-		"name": "URL Health Smoke Test",
-		"event": [{
-			"listen": "test",
-			"script": {
-				"id": "d96167a1-4b7d-4343-b896-d1752e5c8cd1",
-				"exec": [
-					"pm.test(\"Response time is less than 1000ms\", function () {",
-					"    pm.expect(pm.response.responseTime).to.be.below(1000);",
-					"});",
-					"",
-					"pm.test(\"Status code is 200\", function () {",
-					"    pm.response.to.have.status(200);",
-					"});",
-					"",
-					""
-				],
-				"type": "text/javascript"
-			}
-		}],
-		"request": {
-			"method": "GET",
-			"header": [],
-			"url": {
-				"raw": "https://{{app-host}}",
-				"protocol": "https",
-				"host": [
-					"{{app-host}}"
-				],
-				"path": [
-					"health"
-				]
-			}
+	"item": [
+		{
+			"name": "URL Health Smoke Test",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response time is less than 1000ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+							"});",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "https://{{app-host}}/health"
+			},
+			"response": []
 		},
-		"response": []
-	}],
-	"event": [{
+		{
+			"name": "Application Smoke Test",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://{{app-host}}/api/v1/images?application_id=honeycomb&group_id=1&item_id=2&image=/spec/postman/test.png",
+					"protocol": "https",
+					"host": [
+						"{{app-host}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"images"
+					],
+					"query": [
+						{
+							"key": "application_id",
+							"value": "honeycomb"
+						},
+						{
+							"key": "group_id",
+							"value": "1"
+						},
+						{
+							"key": "item_id",
+							"value": "2"
+						},
+						{
+							"key": "image",
+							"value": "/spec/postman/test.png"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
 			"listen": "prerequest",
 			"script": {
-				"id": "8e5eb9f5-247e-4eb3-8d77-5d3ae0fa7366",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -53,7 +85,6 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "6489c6fd-e2f4-4863-8a76-017ffc8ee699",
 				"type": "text/javascript",
 				"exec": [
 					"pm.test(\"Response time is less than 1000ms\", function () {",
@@ -65,7 +96,5 @@
 				]
 			}
 		}
-	],
-
-	"protocolProfileBehavior": {}
+	]
 }
