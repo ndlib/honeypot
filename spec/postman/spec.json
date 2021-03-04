@@ -59,7 +59,7 @@
 						{
 							"key": "image",
 							"type": "file",
-							"src": "/spec/postman/test.png"
+							"src": "spec/postman/test.png"
 						}
 					]
 				},
