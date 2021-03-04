@@ -34,40 +34,36 @@
 			"response": []
 		},
 		{
-			"name": "Application Smoke Test",
+			"name": "Honeypot Application Smoke Test",
 			"request": {
 				"method": "POST",
 				"header": [],
-				"url": {
-					"raw": "https://{{app-host}}/api/v1/images?application_id=honeycomb&group_id=1&item_id=2&image=spec/postman/test.png",
-					"protocol": "https",
-					"host": [
-						"{{app-host}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"images"
-					],
-					"query": [
+				"body": {
+					"mode": "formdata",
+					"formdata": [
 						{
 							"key": "application_id",
-							"value": "honeycomb"
+							"value": "honeycomb",
+							"type": "text"
 						},
 						{
 							"key": "group_id",
-							"value": "1"
+							"value": "1",
+							"type": "text"
 						},
 						{
 							"key": "item_id",
-							"value": "2"
+							"value": "2",
+							"type": "text"
 						},
 						{
 							"key": "image",
-							"value": "/spec/postman/test.png"
+							"type": "file",
+							"src": "/spec/postman/test.png"
 						}
 					]
-				}
+				},
+				"url": "https://{{app-host}}/api/v1/images"
 			},
 			"response": []
 		}
