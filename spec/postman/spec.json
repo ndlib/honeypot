@@ -29,7 +29,7 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": "https://{{app-host}}/health"
+				"url": "{{app-host}}/health"
 			},
 			"response": []
 		},
@@ -63,7 +63,7 @@
 						}
 					]
 				},
-				"url": "https://{{app-host}}/api/v1/images"
+				"url": "{{app-host}}/api/v1/images"
 			},
 			"response": []
 		}
